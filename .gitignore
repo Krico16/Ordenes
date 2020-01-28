@@ -1,0 +1,5 @@
+node_modules
+.openode
+google-auth.json
+docker-compose.yml
+Dockerfile
