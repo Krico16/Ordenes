@@ -3,12 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var firebase = require('firebase');
-require('firebase/auth');
-require('firebase/firestore');
-var fbConfig = require('./google-auth.json');
 
-firebase.initializeApp(fbConfig);
+/*
+var ini = admin.initializeApp({
+    credential: admin.credential.cert(fbConfig),
+    databaseURL: 'https://prueba-2e62f.firebaseio.com'
+});
+*/
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var registerRouter = require('./routes/register');

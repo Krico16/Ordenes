@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var firebase = require('firebase');
-require('firebase/auth');
-
+var admin = require('../firebase');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -12,24 +10,26 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  var email = req.body.UserEmail;
+  var nick  = req.body.UserName;
+  var mail = req.body.UserEmail;
   var pass = req.body.UserPassword;
   var confirm = req.body.ClonePassword;
 
-  if (email != null && pass != null && confirm != null) {
+  if (mail && pass && confirm && nick) {
     if (pass === confirm) {
-      firebase.auth().createUserWithEmailAndPassword(email, pass)
-      .then( success => {
-        res.redirect('/');
-      })
-      .catch(error => {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorMessage);
-        res.redirect('/');
-        // ...
-      });
+      admin.auth().createUser({
+        email: mail,
+        password: pass,
+        emailVerified: true,
+        displayName: nick,
+        disabled: false
+      }).then( record => {
+          console.log(record.uid);
+          res.redirect('/');
+      }).catch( error => {
+        console.log("Error: ", error);
+        res.render(error);
+      } );
     }
   }
 });
