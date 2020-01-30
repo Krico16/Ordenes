@@ -21,15 +21,20 @@ router.post('/', function (req, res, next) {
       username : nick,
       password : pass
     }
-    user.create( userData, ( err, user) => {
-      if( err ){
+    var NewUser = user(userData);
+
+    NewUser.save( err => {
+      if(err){
         console.log(err);
-        return next(err);
+        res.redirect('/');
       }else{
-        console.log(user);
-        return res.redirect('/');        
+        console.log('Creado');
+        res.redirect('/');
       }
-    });
+    })
+  }else{
+    console.log('Dato erroneo');
+    
   }
 });
 

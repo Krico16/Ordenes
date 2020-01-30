@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var database = require('./database');
 var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
 
 database();
 
@@ -25,11 +24,15 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); /
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
+app.use('/p', express.static(__dirname + '/public/dash'));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('KRICO'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({ secret: 'PARKINGSOLUTIONS', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }));
+
 /*
 app.use(session({
   secret: 'KRICO',
