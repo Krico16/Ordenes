@@ -3,3 +3,4 @@ node_modules
 google-auth.json
 docker-compose.yml
 Dockerfile
+sdk.json

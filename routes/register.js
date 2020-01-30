@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var admin = require('../firebase');
+var user = require('../models/user');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -14,23 +14,23 @@ router.post('/', function (req, res, next) {
   var mail = req.body.UserEmail;
   var pass = req.body.UserPassword;
   var confirm = req.body.ClonePassword;
+  if(nick && mail && pass && pass == confirm){
 
-  if (mail && pass && confirm && nick) {
-    if (pass === confirm) {
-      admin.auth().createUser({
-        email: mail,
-        password: pass,
-        emailVerified: true,
-        displayName: nick,
-        disabled: false
-      }).then( record => {
-          console.log(record.uid);
-          res.redirect('/');
-      }).catch( error => {
-        console.log("Error: ", error);
-        res.render(error);
-      } );
+    var userData = {
+      email: mail,
+      username : nick,
+      password : pass
     }
+    user.create( userData, ( err, user) => {
+      if( err ){
+        console.log(err);
+        return next(err);
+      }else{
+        console.log(user);
+        return res.redirect('/');        
+      }
+    });
   }
 });
+
 module.exports = router;

@@ -8,6 +8,18 @@
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <script src="/js/jquery.js"></script>
   <script src="/js/bootstrap.min.js"></script>
+  <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-firestore.js"></script>
+  <script src="/javascripts/login.js"></script>
 </head>
 
 <body>
@@ -17,11 +29,11 @@
         <form class="login100-form validate-form flex-sb flex-w" action="/" method="POST">
           <span class="login100-form-title p-b-51"> Login </span>
           <div class="wrap-input100 validate-input m-b-16" data-validate="Username is required">
-            <input class="input100" type="email" name="UserMail" placeholder="Username">
+            <input class="input100" type="email" name="UserMail" id="UserMail" placeholder="Username">
             <span class="focus-input100"></span>
           </div>
           <div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
-            <input class="input100" type="password" name="UserPass" placeholder="Password">
+            <input class="input100" type="password" name="UserPass" id="UserPass" placeholder="Password">
             <span class="focus-input100"></span>
           </div>
           <div class="flex-sb-m w-full p-t-3 p-b-24">

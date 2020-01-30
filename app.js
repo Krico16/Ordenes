@@ -3,13 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var database = require('./database');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
-/*
-var ini = admin.initializeApp({
-    credential: admin.credential.cert(fbConfig),
-    databaseURL: 'https://prueba-2e62f.firebaseio.com'
-});
-*/
+database();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -30,8 +28,18 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('KRICO'));
 app.use(express.static(path.join(__dirname, 'public')));
+/*
+app.use(session({
+  secret: 'KRICO',
+  resave: true,
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongooseConnection : database
+  })
+}))
+*/
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
