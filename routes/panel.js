@@ -3,10 +3,16 @@ var router = express.Router();
 var session = require('express-session');
 
 router.get('/', function (req, res, next) {
-        nick = req.session.nick;
-        res.render('dashboard', {
-                username: nick
-        });
+        if (req.session.nick) {
+                var nick = req.session.nick;
+                var id = req.session.userID;
+                res.render('dashboard', {
+                        username: nick,
+                        userid: id
+                });
+        }else {
+                res.redirect('/');
+        }
 });
 
-module.exports = router;
+module.exports = router; 
