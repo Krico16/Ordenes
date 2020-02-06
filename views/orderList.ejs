@@ -31,7 +31,6 @@
 
     
 </head>
-
 <body class="animsition">
     <div class="page-wrapper">
         <!-- HEADER DESKTOP-->
@@ -380,7 +379,7 @@
                                             <td> <%= item.nombre %> </td>
                                             <td> <span class="block-email"> S/. <%= item.precio %> </span> </td>
                                             <td class="desc"> <%= item.direccion %> </td>
-                                            <td> <%= item.creacion %> </td>
+                                            <td> <%= moment(item.creacion).format('DD-MM-YYYY') %> </td>
                                             <td>
                                                 <div class="table-data-feature">
                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">

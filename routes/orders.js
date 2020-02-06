@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var moment = require('moment');
 var ordenModel = require('../models/ordenes');
 
 router.get('/', function (req, res, next) {
@@ -15,7 +16,8 @@ router.get('/', function (req, res, next) {
             res.render('orderList', {
                 username: nick,
                 userid: id,
-                ordenes: docs
+                ordenes: docs,
+                moment: moment
             });
         })
     } else {

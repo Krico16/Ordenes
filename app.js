@@ -32,7 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('KRICO'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: 'PARKINGSOLUTIONS', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }));
+app.use(session({ secret: 'PARKINGSOLUTIONS', cookie: { maxAge: 600000000 }, resave: true, saveUninitialized: true }));
 
 /*
 app.use(session({
