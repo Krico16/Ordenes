@@ -15,7 +15,7 @@ const CorrectivoSchema = new mongoose.Schema({
     HorasPerdidas: Date
 });
 
-const orderSchema = new mongoose.Schema({
+const ProjectSchema = new mongoose.Schema({
     Nombre: {
         type: String,
         required: true,
@@ -32,9 +32,10 @@ const orderSchema = new mongoose.Schema({
     Correctivos: [CorrectivoSchema],
     Tecnicos: Number,
     Supervisor: Number,
-    Jefe: Number
+    Jefe: Number,
+    Creador: String
 });
 
-var Orden = mongoose.model('Orden', orderSchema);
+var Project = mongoose.model('Project', ProjectSchema);
 
-module.exports = Orden;
+module.exports = Project;

@@ -27,6 +27,7 @@ router.post('/', function (req, res, next) {
           sessionData = req.session;
           sessionData.userID = resp._id;
           sessionData.nick = resp.username;
+          sessionData.email = resp.email;
           res.redirect('/dashboard');
         }else{
           res.redirect('/');

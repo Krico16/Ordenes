@@ -13,6 +13,7 @@ var usersRouter = require('./routes/users');
 var registerRouter = require('./routes/register');
 var dashRouter = require('./routes/panel');
 var orderRouter = require('./routes/orders')
+var ProjectsRouter = require('./routes/project');
 
 var app = express();
 
@@ -29,10 +30,19 @@ app.use('/p', express.static(__dirname + '/public/dash'));
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cookieParser('KRICO'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: 'PARKINGSOLUTIONS', cookie: { maxAge: 600000000 }, resave: true, saveUninitialized: true }));
+app.use(session({
+  secret: 'PARKINGSOLUTIONS',
+  cookie: {
+    maxAge: 600000000
+  },
+  resave: true,
+  saveUninitialized: true
+}));
 
 /*
 app.use(session({
@@ -47,17 +57,18 @@ app.use(session({
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/register',registerRouter);
-app.use('/dashboard',dashRouter);
-app.use('/ordenes',orderRouter);
+app.use('/register', registerRouter);
+app.use('/dashboard', dashRouter);
+app.use('/ordenes', orderRouter);
+app.use('/projects', ProjectsRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

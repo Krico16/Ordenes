@@ -8,6 +8,7 @@ router.get('/', function (req, res, next) {
         if (req.session.nick) {
                 var nick = req.session.nick;
                 var id = req.session.userID;
+                var mail = req.session.email;
                 var ConteoOrdenes = ordenes.countDocuments();
                 var Lista = {
                         OrderCont: ConteoOrdenes.exec.bind(ConteoOrdenes)
@@ -20,6 +21,7 @@ router.get('/', function (req, res, next) {
                         res.render('dashboard', {
                                 username: nick,
                                 userid: id,
+                                email : mail,
                                 data: rs
                         });
                 });
