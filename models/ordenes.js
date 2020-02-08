@@ -1,18 +1,31 @@
 var mongoose = require('mongoose');
 
+const TimeSchema = new mongoose.Schema({
+    Horas: Number,
+    Minutos: Number,
+    Segundos: Number
+});
+
+const PersonalSchema = new mongoose.Schema({
+    Identificador: String,
+    Costo: Number,
+    Utilidad: Number,
+    Valor: Number
+});
+
 const PreventivoSchema = new mongoose.Schema({
     Cantidad: Number,
-    HorasxPreventivo : Date,
-    HorasxPreventivoAnual : Date,
-    HorasPerdidas : Date,
-    HorasxCambio: Date
+    HorasxPreventivo : [TimeSchema],
+    HorasxPreventivoAnual : [TimeSchema],
+    HorasPerdidas : [TimeSchema],
+    HorasxCambio: [TimeSchema]
 });
 
 const CorrectivoSchema = new mongoose.Schema({
     Cantidad: Number,
-    HorasxCorrectivo : Date,
-    HorasxRepuesto: Date,
-    HorasPerdidas: Date
+    HorasxCorrectivo : [TimeSchema],
+    HorasxRepuesto: [TimeSchema],
+    HorasPerdidas: [TimeSchema]
 });
 
 const orderSchema = new mongoose.Schema({
@@ -30,9 +43,14 @@ const orderSchema = new mongoose.Schema({
     },
     Preventivos: [PreventivoSchema],
     Correctivos: [CorrectivoSchema],
-    Tecnicos: Number,
-    Supervisor: Number,
-    Jefe: Number
+    personal: [{PersonalSchema}]
+});
+
+PersonalSchema.pre('save', next => {
+    var personal = this;
+    personal.Utilidad = personal.Costo * 0.5;
+    personal.Valor = personal.Costo * 1.5;
+    next();
 });
 
 var Orden = mongoose.model('Orden', orderSchema);

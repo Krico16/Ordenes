@@ -27,6 +27,8 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redi
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
 app.use('/p', express.static(__dirname + '/public/dash'));
+app.use('/inputmask', express.static(__dirname + '/node_modules/inputmask'));
+app.use('/script', express.static( __dirname + '/public/javascripts' ))
 
 app.use(logger('dev'));
 app.use(express.json());

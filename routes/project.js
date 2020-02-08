@@ -31,7 +31,7 @@ router.get('/', function (req, res, next) {
 
 
 router.get('/new', function (req, res, next) {
-    if (req.session.userID) {
+    if (req.session.nick) {
         var nick = req.session.nick;
         var id = req.session.userID;
         var mail = req.session.email;
@@ -41,6 +41,8 @@ router.get('/new', function (req, res, next) {
             userid: id,
             email: mail
         });
+    } else {
+        res.redirect('/');
     }
 });
 
