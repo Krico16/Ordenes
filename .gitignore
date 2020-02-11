@@ -4,3 +4,4 @@ google-auth.json
 docker-compose.yml
 Dockerfile
 fbSDK.json
+.now

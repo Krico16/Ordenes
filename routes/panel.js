@@ -21,7 +21,7 @@ router.get('/', function (req, res, next) {
                         res.render('dashboard', {
                                 username: nick,
                                 userid: id,
-                                email : mail,
+                                email: mail,
                                 data: rs
                         });
                 });

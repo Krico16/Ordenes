@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var database = require('./database');
 var session = require('express-session');
+require('dotenv').config();
 
 database();
 
@@ -30,17 +31,17 @@ app.use('/p', express.static(__dirname + '/public/dash'));
 app.use('/inputmask', express.static(__dirname + '/node_modules/inputmask'));
 app.use('/script', express.static( __dirname + '/public/javascripts' ))
 
-app.use(logger('dev'));
+app.use(logger('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({
   extended: false
 }));
-app.use(cookieParser('KRICO'));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret: 'PARKINGSOLUTIONS',
+  secret: process.env.PHRASE ,
   cookie: {
-    maxAge: 600000000
+    maxAge: 60 * 60 * 1000
   },
   resave: true,
   saveUninitialized: true

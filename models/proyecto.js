@@ -1,18 +1,25 @@
 var mongoose = require('mongoose');
 
+const PersonalSchema = new mongoose.Schema({
+    Tipo: String,
+    Costo: Number,
+    Utilidad: Number,
+    Valor: Number
+});
+
 const PreventivoSchema = new mongoose.Schema({
     Cantidad: Number,
-    HorasxPreventivo : Date,
-    HorasxPreventivoAnual : Date,
-    HorasPerdidas : Date,
-    HorasxCambio: Date
+    HorasxPreventivo : Number,
+    HorasxPreventivoAnual : Number,
+    HorasPerdidas : Number,
+    HorasxCambio: Number
 });
 
 const CorrectivoSchema = new mongoose.Schema({
     Cantidad: Number,
-    HorasxCorrectivo : Date,
-    HorasxRepuesto: Date,
-    HorasPerdidas: Date
+    HorasxCorrectivo : Number,
+    HorasxRepuesto: Number,
+    HorasPerdidas: Number
 });
 
 const ProjectSchema = new mongoose.Schema({
@@ -30,10 +37,7 @@ const ProjectSchema = new mongoose.Schema({
     },
     Preventivos: [PreventivoSchema],
     Correctivos: [CorrectivoSchema],
-    Tecnicos: Number,
-    Supervisor: Number,
-    Jefe: Number,
-    Creador: String
+    Personal: [{PersonalSchema}]
 });
 
 var Project = mongoose.model('Project', ProjectSchema);

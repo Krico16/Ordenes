@@ -227,7 +227,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="quantity" class="form-control-label">Cantidad de equipos</label>
-                                                    <input class="form-control col-2" name="quantity" min="1" value="1" type="number">
+                                                    <input class="form-control col-2" id="quantity" name="quantity" min="1" value="1" type="number">
                                                 </div>    
                                             </div>
                                         </div>
@@ -236,7 +236,7 @@
                                                 <h4 class="h4">Cantidad de visitas preventivas</h4>
                                                 <div class="form-group">
                                                     <label for="quantityPreventive" class="form-control-label">Cantidad de visitas</label>
-                                                    <input class="form-control col-4" id="quantityPrevent" name="quantityPrevent" min="1" value="1" type="number">
+                                                    <input class="form-control col-4" id="quantityPreventive" name="quantityPreventive" min="1" value="1" type="number">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="PreventiveHour" class="form-control-label">Horas hombre por preventivo</label>
@@ -261,6 +261,22 @@
                                                     <label for="quantityCorrect" class="form-control-label">Cantidad de visitas</label>
                                                     <input class="form-control col-4" id="quantityCorrect" name="quantityCorrect" min="1" value="1" type="number">
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="CorrectiveHour" class="form-control-label">Horas hombre por correctivo</label>
+                                                    <input type="text" class="form-control col-4" name="CorrectiveHour" id="CorrectiveHour">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="LostCorrective" class="form-control-label">Horas perdidas</label>
+                                                    <input type="text" class="form-control col-4" name="LostCorrective" id="LostCorrective">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="ChangeCorrective" class="form-control-label">Horas hombre por repuestos en garantia</label>
+                                                    <input type="text" class="form-control col-4" name="ChangeCorrective" id="ChangeCorrective">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 offset-md-4">
+                                                <button type="submit" class="btn btn-outline-success btn-lg btn-block">CREAR PROYECTO</button>
+                                                <button class="btn btn-outline-primary btn-lg btn-block">GUARDAR</button>
                                             </div>
                                         </div>
                                     </form>
