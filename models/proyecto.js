@@ -35,9 +35,9 @@ const ProjectSchema = new mongoose.Schema({
     Equipos: {
         type: Number
     },
-    Preventivos: [PreventivoSchema],
-    Correctivos: [CorrectivoSchema],
-    Personal: [{PersonalSchema}]
+    Preventivos: PreventivoSchema,
+    Correctivos: CorrectivoSchema,
+    Personal: [PersonalSchema]
 });
 
 var Project = mongoose.model('Project', ProjectSchema);
