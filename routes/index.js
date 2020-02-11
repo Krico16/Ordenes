@@ -2,9 +2,7 @@ var express = require('express');
 var router = express.Router();
 var bcypt = require('bcryptjs');
 var userModel = require('../models/user');
-var session  = require('express-session');
-
-var sessionData;
+require('express-session');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -24,10 +22,14 @@ router.post('/', function (req, res, next) {
     }else{
       bcypt.compare(pass, resp.password, (error, succ) => {
         if(succ){
-          sessionData = req.session;
-          sessionData.userID = resp._id;
-          sessionData.nick = resp.username;
-          sessionData.email = resp.email;
+          var UserData = {
+            UserID : resp._id,
+            nick: resp.username,
+            email: resp.email
+          }
+          req.session.data = UserData;
+          req.session.save();
+          console.log(req.session.data);
           res.redirect('/dashboard');
         }else{
           res.redirect('/');

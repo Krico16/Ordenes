@@ -5,9 +5,20 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var database = require('./database');
 var session = require('express-session');
+var SessionStorage = require('connect-mongo')(session);
+var mongoose = require('mongoose');
 require('dotenv').config();
 
 database();
+
+mongoose.connect(process.env.db, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+});
+mongoose.Promise = global.Promise;
+const mdb = mongoose.connection;
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -45,7 +56,8 @@ app.use(session({
     secure: true
   },
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: new SessionStorage({ mongooseConnection: mdb }),
 }));
 
 /*

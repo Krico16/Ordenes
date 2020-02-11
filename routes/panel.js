@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var session = require('express-session');
 var ordenes = require('../models/ordenes');
 var asinc = require('async');
+require('express-session');
 
 router.get('/', function (req, res, next) {
-        if (req.session.nick) {
+        if (req.session.data) {
                 var nick = req.session.nick;
                 var id = req.session.userID;
                 var mail = req.session.email;
