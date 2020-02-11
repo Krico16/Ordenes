@@ -21,7 +21,7 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+app.set('trust proxy', 1);
 
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
@@ -41,9 +41,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: process.env.PHRASE ,
   cookie: {
-    maxAge: 60 * 60 * 1000
+    maxAge: 60 * 60 * 1000,
+    secure: true
   },
-  resave: true,
+  resave: false,
   saveUninitialized: true
 }));
 
@@ -67,6 +68,9 @@ app.use('/projects', ProjectsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
+  if(!req.session){
+    res.redirect('/');
+  }
   next(createError(404));
 });
 
