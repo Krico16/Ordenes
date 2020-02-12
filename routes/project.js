@@ -80,15 +80,33 @@ router.get('/continue/:projectID', (req, res, next) => {
 });
 
 router.post('/continue/:projectID', (req, res, next) => {
-    var obj = req.body;
-    console.log(obj);
-    var result = Object.keys(obj).map(function (key) {
-        return [obj[key]];
+    var _t = Array();
+    var t__ = Array();
+    var i = 0;
+    var Personal = Array();
+    for (const key in req.body) {
+        var value = req.body[key];
+        t__.push(value);
+        if(i === 1) {
+            _t.push(t__)
+            t__ = [];
+            i = -1;
+        }
+        i++;
+    }
+    _t.forEach(element => {
+        var a = {
+            Tipo: element[0],
+            Costo: element[1]
+        }
+        Personal.push(a);
+    });
+    Project.findByIdAndUpdate(ObjectID(req.params.projectID),{Personal: Personal},(err) => {
+        if(err) console.log('Error actualizando documento:', err);
+        console.log('Documento actualizado');
     });
 
-    console.log(result);
-
-    res.send(req.body);
+    res.json(Personal)
 });
 
 router.post('/create', function (req, res, next) {

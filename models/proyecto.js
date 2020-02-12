@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+//var PersonalSchema = require('./Personal');
+
 
 const PersonalSchema = new mongoose.Schema({
     Tipo: String,
@@ -39,6 +41,7 @@ const ProjectSchema = new mongoose.Schema({
     Correctivos: CorrectivoSchema,
     Personal: [PersonalSchema]
 });
+
 
 PersonalSchema.pre("save", (next) => {
     var model = this;

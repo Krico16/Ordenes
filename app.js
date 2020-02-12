@@ -44,6 +44,7 @@ app.use('/inputmask', express.static(__dirname + '/node_modules/inputmask'));
 app.use('/script', express.static(__dirname + '/public/javascripts'))
 app.use('/repeater', express.static( __dirname + '/node_modules/jquery.repeater' ));
 
+
 app.use(logger('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -58,19 +59,10 @@ app.use(session({
     collection: 'sesiones'
   }),
   resave: false,
-  saveUninitialized:  false
+  saveUninitialized:  false,
+  maxAge: 60 * 60 * 3,
+  expires: 60 * 60 * 3
 }));
-
-/*
-app.use(session({
-  secret: 'KRICO',
-  resave: true,
-  saveUninitialized: false,
-  store: new MongoStore({
-    mongooseConnection : database
-  })
-}))
-*/
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

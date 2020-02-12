@@ -7,7 +7,8 @@ const IniDB = function() {
         mongoose.connect(uri, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-            useCreateIndex: true
+            useCreateIndex: true,
+            useFindAndModify: false
         });
         console.log("Connected to db");
     } catch (e) {

@@ -18,15 +18,20 @@ $(function () {
 
     $("#send").on('click', function(e){
         e.preventDefault();
-        var values = $(".repeater").repeaterVal();
+        var values = $(".repeater").repeaterVal().grupo;
+        var vals = Array();
+        values.forEach(element => {
+            vals.push(element);
+        });
+        console.log(vals);
         var id = $("#pid").val();
         $.ajax({
             url: '/projects/continue/' + id,
-            data: values,
             method: 'POST',
-            dataType: 'json',
+            data: { asd: vals},
             success: (res) => {
                 console.log(res);
+                console.log(values);
             },
             error: (err) => {
                 console.log(err);
