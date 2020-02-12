@@ -27,6 +27,7 @@ var dashRouter = require('./routes/panel');
 var orderRouter = require('./routes/orders')
 var ProjectsRouter = require('./routes/project');
 
+
 var app = express();
 
 // view engine setup
@@ -40,7 +41,8 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 app.use('/p', express.static(__dirname + '/public/dash'));
 app.use('/inputmask', express.static(__dirname + '/node_modules/inputmask'));
-app.use('/script', express.static( __dirname + '/public/javascripts' ))
+app.use('/script', express.static(__dirname + '/public/javascripts'))
+app.use('/repeater', express.static( __dirname + '/node_modules/jquery.repeater' ));
 
 app.use(logger('tiny'));
 app.use(express.json());
@@ -50,14 +52,13 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret: process.env.PHRASE ,
-  cookie: {
-    maxAge: 60 * 60 * 1000,
-    secure: true
-  },
+  secret: process.env.PHRASE,
+  store: new SessionStorage({
+    mongooseConnection: mdb,
+    collection: 'sesiones'
+  }),
   resave: false,
-  saveUninitialized: true,
-  store: new SessionStorage({ mongooseConnection: mdb }),
+  saveUninitialized:  false
 }));
 
 /*
@@ -80,9 +81,6 @@ app.use('/projects', ProjectsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  if(!req.session){
-    res.redirect('/');
-  }
   next(createError(404));
 });
 

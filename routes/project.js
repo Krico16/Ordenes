@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var sync = require('async');
+var ObjectID = require('mongoose').Types.ObjectId;
 
 var Project = require('../models/proyecto');
 
 router.get('/', function (req, res, next) {
-    if (req.session.userID) {
-        var nick = req.session.nick;
-        var id = req.session.userID;
-        var mail = req.session.email;
+    if (req.session.data) {
+        var nick = req.session.data.nick;
+        var id = req.session.data.userID;
+        var mail = req.session.data.email;
         var ListaProyectos = Project.find();
         var Info = {
             projects: ListaProyectos.exec.bind(ListaProyectos)
@@ -19,6 +20,7 @@ router.get('/', function (req, res, next) {
                 res.status(500).send(ERR);
                 return;
             }
+
             res.render('projects', {
                 username: nick,
                 userid: id,
@@ -33,10 +35,10 @@ router.get('/', function (req, res, next) {
 
 
 router.get('/new', function (req, res, next) {
-    if (req.session.nick) {
-        var nick = req.session.nick;
-        var id = req.session.userID;
-        var mail = req.session.email;
+    if (req.session.data) {
+        var nick = req.session.data.nick;
+        var id = req.session.data.userID;
+        var mail = req.session.data.email;
 
         res.render('newProject', {
             username: nick,
@@ -48,6 +50,47 @@ router.get('/new', function (req, res, next) {
     }
 });
 
+router.get('/continue/:projectID', (req, res, next) => {
+    if (req.session.data) {
+        var nick = req.session.data.nick;
+        var id = req.session.data.userID;
+        var mail = req.session.data.email;
+
+        var idProject = new ObjectID(req.params.projectID);
+        var ProjectData = Project.findOne({
+            _id: idProject
+        });
+
+        var List = {
+            proyecto: ProjectData.exec.bind(ProjectData)
+        }
+        sync.parallel(List, (bad, good) => {
+            if (bad) {
+                res.status(500).send(bad);
+                return;
+            }
+            res.render('addPersonal', {
+                username: nick,
+                userid: id,
+                email: mail,
+                data: good
+            });
+        });
+    }
+});
+
+router.post('/continue/:projectID', (req, res, next) => {
+    var obj = req.body;
+    console.log(obj);
+    var result = Object.keys(obj).map(function (key) {
+        return [obj[key]];
+    });
+
+    console.log(result);
+
+    res.send(req.body);
+});
+
 router.post('/create', function (req, res, next) {
 
     var ProjectData = {
@@ -55,36 +98,38 @@ router.post('/create', function (req, res, next) {
         Cliente: req.body.client,
         Equipos: req.body.quantity,
         Preventivos: {
-            Cantidad: req.body.quantityPreventive ,
-            HorasxPreventivo: convertToMinutes(req.body.PreventiveHour) ,
-            HorasxPreventivoAnual: convertToMinutes(req.body.AnualPreventiveHour) ,
-            HorasPerdidas: convertToMinutes(req.body.LostPreventive) ,
+            Cantidad: req.body.quantityPreventive,
+            HorasxPreventivo: convertToMinutes(req.body.PreventiveHour),
+            HorasxPreventivoAnual: convertToMinutes(req.body.AnualPreventiveHour),
+            HorasPerdidas: convertToMinutes(req.body.LostPreventive),
             HorasxCambio: convertToMinutes(req.body.ChangePreventive)
         },
         Correctivos: {
-            Cantidad: req.body.quantityCorrect ,
-            HorasxCorrectivo : convertToMinutes(req.body.CorrectiveHour) ,
-            HorasxRepuesto: convertToMinutes(req.body.LostCorrective) ,
+            Cantidad: req.body.quantityCorrect,
+            HorasxCorrectivo: convertToMinutes(req.body.CorrectiveHour),
+            HorasxRepuesto: convertToMinutes(req.body.LostCorrective),
             HorasPerdidas: convertToMinutes(req.body.ChangeCorrective)
         }
     };
 
     var nProject = Project(ProjectData);
 
-    nProject.save(err => {
-        if(err){
-            console.log("Error creando proyecto",err);
+    nProject.save((err, doc) => {
+        if (err) {
+            console.log("Error creando proyecto", err);
             res.redirect('/projects');
         }
-        console.log("Proyecto creado");
-        res.redirect('/projects');
+        console.log("Proyecto creado: ", doc._id);
+        res.redirect('/projects/edit/' + doc._id);
     });
 });
 
-function convertToMinutes(Hora){
+
+
+function convertToMinutes(Hora) {
     var parte = Hora.split(':');
 
-    var total = Number( +parte[0] * 60) + Number(parte[1]);
+    var total = Number(+parte[0] * 60) + Number(parte[1]);
 
     return total;
 }

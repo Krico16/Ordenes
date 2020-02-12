@@ -232,33 +232,33 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="tr-shadow">
-                                            <td>Lori Lynch</td>
-                                            <td>lori@example.com</td>
-                                            <td class="desc">Samsung S8 Black</td>
-                                            <td>2018-09-27 02:12</td>
-                                            <td>Processed</td>
-                                            <td>
-                                                <div class="table-data-feature">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                                        title="" data-original-title="Send">
-                                                        <i class="zmdi zmdi-mail-send"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                                        title="" data-original-title="Edit">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                                        title="" data-original-title="Delete">
-                                                        <i class="zmdi zmdi-delete"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top"
-                                                        title="" data-original-title="More">
-                                                        <i class="zmdi zmdi-more"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <% data.projects.forEach(element => { %>
+                                            <tr>
+                                                <td><%= element.Nombre %></td>
+                                                <td><%= element.Cliente %></td>
+                                                <td class="desc"><%= element.Equipos %></td>
+                                                <td><%= element.Preventivos.Cantidad %></td>
+                                                <td><%= element.Correctivos.Cantidad %></td>
+                                                <td>
+                                                    <div class="table-data-feature">
+                                                        <a href="/projects/edit/<%= element._id %>">
+                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                            title="" data-original-title="Edit">
+                                                            <i class="zmdi zmdi-edit"></i>
+                                                        </button>
+                                                        </a>
+                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                            title="" data-original-title="Delete">
+                                                            <i class="zmdi zmdi-delete"></i>
+                                                        </button>
+                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                            title="" data-original-title="More">
+                                                            <i class="zmdi zmdi-more"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>                                            
+                                        <% }); %>
                                     </tbody>
                                 </table>
                             </div>

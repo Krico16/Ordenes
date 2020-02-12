@@ -15,7 +15,7 @@
     <link href="/p/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="/p/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
     <link href="/p/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    
+
     <!-- Vendor CSS-->
     <link href="/p/animsition/animsition.min.css" rel="stylesheet" media="all">
     <link href="/p/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
@@ -211,73 +211,38 @@
                             <div class="card">
                                 <div class="card-body card-block">
                                     <div class="card-title">
-                                        <h3 class="text-center title-2"> Crear nuevo proyecto</h3>
+                                        <h3 class="text-center title-2">Editar el proyecto <%= data.proyecto.Nombre %>
+                                        </h3>
                                     </div>
                                     <hr>
-                                    <form action="/projects/create" method="post">
+                                    <form action="/projects/continue/<%= data.proyecto._id %>" method="post" class="repeater">
                                         <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="project" class=" form-control-label">Nombre del proyecto</label>
-                                                    <input type="text" id="project" placeholder="Ingrese el nombre del proyecto" class="form-control col-4" name="project">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="client" class=" form-control-label">Nombre del cliente</label>
-                                                    <input type="text" id="client" placeholder="Ingrese el nombre del proyecto" class="form-control col-4" name="client">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="quantity" class="form-control-label">Cantidad de equipos</label>
-                                                    <input class="form-control col-2" id="quantity" name="quantity" min="1" value="1" type="number">
-                                                </div>    
+                                            <div class="col-md-3 offset-md-4">
+                                                <input data-repeater-create type="button" value="Nueva Persona"
+                                                    class="btn btn-outline-info btn-lg btn-block" />
                                             </div>
                                         </div>
+                                        <div class="row" data-repeater-list="grupo">
+                                            <div class="col-lg-12 col-12" data-repeater-item>
+                                                <div class="form-group" >
+                                                    <label class="fom-control-label">Descripción de la persona</label>
+                                                    <input type="text" class="form-control col-4 u" name="Usuario"
+                                                        id="Usuario">
+                                                </div>
+                                                <div class="form-group" >
+                                                    <label class="form-control-label">Costo</label>
+                                                    <input type="text" class="form-control col-2 p" name="Precio"
+                                                        id="Precio">
+                                                </div>
+                                                <div class="form-group" >
+                                                    <input data-repeater-delete type="button" class="btn btn-danger"
+                                                        value="Borrar" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="text" value="<%= data.proyecto._id %>" id="pid" style="display: none;">
                                         <div class="row">
-                                            <div class="col-md-6 col-lg-6 col-sm-12">
-                                                <h4 class="h4">Cantidad de visitas preventivas</h4>
-                                                <div class="form-group">
-                                                    <label for="quantityPreventive" class="form-control-label">Cantidad de visitas</label>
-                                                    <input class="form-control col-4" id="quantityPreventive" name="quantityPreventive" min="1" value="1" type="number">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="PreventiveHour" class="form-control-label">Horas hombre por preventivo</label>
-                                                    <input type="text" class="form-control col-4" name="PreventiveHour" id="PreventiveHour" im-insert="true">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="AnualPreventiveHour" class="form-control-label">Horas hombre por preventivo anual</label>
-                                                    <input type="text" class="form-control col-4" name="AnualPreventiveHour" id="AnualPreventiveHour" im-insert="true">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="LostPreventive" class="form-control-label">Horas perdidas</label>
-                                                    <input type="text" class="form-control col-4" name="LostPreventive" id="LostPreventive" im-insert="true">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="ChangePreventive" class="form-control-label">Horas por cambio de repuesto</label>
-                                                    <input type="text" class="form-control col-4" name="ChangePreventive" id="ChangePreventive" im-insert="true">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-lg-6 col-sm-12">
-                                                <h4 class="h4">Cantidad de visitas correctivas</h4>
-                                                <div class="form-group">
-                                                    <label for="quantityCorrect" class="form-control-label">Cantidad de visitas</label>
-                                                    <input class="form-control col-4" id="quantityCorrect" name="quantityCorrect" min="1" value="1" type="number">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="CorrectiveHour" class="form-control-label">Horas hombre por correctivo</label>
-                                                    <input type="text" class="form-control col-4" name="CorrectiveHour" id="CorrectiveHour">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="LostCorrective" class="form-control-label">Horas perdidas</label>
-                                                    <input type="text" class="form-control col-4" name="LostCorrective" id="LostCorrective">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="ChangeCorrective" class="form-control-label">Horas hombre por repuestos en garantia</label>
-                                                    <input type="text" class="form-control col-4" name="ChangeCorrective" id="ChangeCorrective">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 offset-md-4">
-                                                <button type="submit" class="btn btn-outline-success btn-lg btn-block">CONTINUAR</button>
-                                                <button class="btn btn-outline-primary btn-lg btn-block">GUARDAR</button>
-                                            </div>
+                                            <button class="btn btn-outline-success btn-lg btn-block" id="send">Finalizar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -317,10 +282,11 @@
     <script src="/p/chartjs/Chart.bundle.min.js"></script>
     <script src="/p/select2/select2.min.js"></script>
     <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+    <script src="/repeater/jquery.repeater.min.js"></script>
 
     <!-- Main JS-->
     <script src="/p/main.js"></script>
-    <script src="/script/project.js"></script>
+    <script src="/script/personal.js"></script>
 </body>
 
 </html>

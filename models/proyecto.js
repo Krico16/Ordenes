@@ -40,6 +40,13 @@ const ProjectSchema = new mongoose.Schema({
     Personal: [PersonalSchema]
 });
 
+PersonalSchema.pre("save", (next) => {
+    var model = this;
+    model.Utilidad = model.Costo * 0.5;
+    model.Valor = model.Costo * 1.5;
+    next();
+});
+
 var Project = mongoose.model('Project', ProjectSchema);
 
 module.exports = Project;

@@ -1,17 +1,16 @@
 var express = require('express');
 var router = express.Router();
-var ordenes = require('../models/ordenes');
+var projects = require('../models/proyecto');
 var asinc = require('async');
-require('express-session');
 
 router.get('/', function (req, res, next) {
         if (req.session.data) {
-                var nick = req.session.nick;
-                var id = req.session.userID;
-                var mail = req.session.email;
-                var ConteoOrdenes = ordenes.countDocuments();
+                var nick = req.session.data.nick;
+                var id = req.session.data.UserID;
+                var mail = req.session.data.email;
+                var ConteoProjects = projects.countDocuments();
                 var Lista = {
-                        OrderCont: ConteoOrdenes.exec.bind(ConteoOrdenes)
+                        ProjectCount: ConteoProjects.exec.bind(ConteoProjects)
                 };
                 asinc.parallel(Lista, (ex, rs) => {
                         if (ex) {
