@@ -11,8 +11,19 @@ router.get('/', function (req, res, next) {
         var id = req.session.data.userID;
         var mail = req.session.data.email;
         var ListaProyectos = Project.find();
+        var ConteoPersonal = Project.aggregate([{
+            "$project": {
+                "count": {
+                    "$reduce": {
+                        "input": "$Personal",
+                        "initialValue": 0
+                    }
+                }
+            }
+        }]);
         var Info = {
-            projects: ListaProyectos.exec.bind(ListaProyectos)
+            projects: ListaProyectos.exec.bind(ListaProyectos),
+            Conteo: ConteoPersonal.exec.bind(ConteoPersonal)
         };
 
         sync.parallel(Info, (ERR, success) => {
@@ -20,6 +31,7 @@ router.get('/', function (req, res, next) {
                 res.status(500).send(ERR);
                 return;
             }
+            console.log(success);
 
             res.render('projects', {
                 username: nick,
@@ -87,7 +99,7 @@ router.post('/continue/:projectID', (req, res, next) => {
     for (const key in req.body) {
         var value = req.body[key];
         t__.push(value);
-        if(i === 1) {
+        if (i === 1) {
             _t.push(t__)
             t__ = [];
             i = -1;
@@ -101,12 +113,12 @@ router.post('/continue/:projectID', (req, res, next) => {
         }
         Personal.push(a);
     });
-    Project.findByIdAndUpdate(ObjectID(req.params.projectID),{Personal: Personal},(err) => {
-        if(err) console.log('Error actualizando documento:', err);
-        console.log('Documento actualizado');
+    Project.findByIdAndUpdate(ObjectID(req.params.projectID), {
+        Personal: Personal
+    }, (err) => {
+        if (err) console.log('Error actualizando documento:', err);
+        res.send('Saved')
     });
-
-    res.json(Personal)
 });
 
 router.post('/create', function (req, res, next) {
