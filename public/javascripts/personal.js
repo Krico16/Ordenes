@@ -30,8 +30,9 @@ $(function () {
             method: 'POST',
             data: { asd: vals},
             success: (res) => {
-                console.log(res);
-                console.log(values);
+                if(res == 'Saved'){
+                    window.location = '../projects'
+                }
             },
             error: (err) => {
                 console.log(err);

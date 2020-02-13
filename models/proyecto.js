@@ -51,5 +51,7 @@ PersonalSchema.pre("save", (next) => {
 });
 
 var Project = mongoose.model('Project', ProjectSchema);
+var Personal = mongoose.model('Personal', PersonalSchema);
 
 module.exports = Project;
+module.exports = Personal;
