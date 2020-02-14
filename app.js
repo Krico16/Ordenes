@@ -7,6 +7,7 @@ var database = require('./database');
 var session = require('express-session');
 var SessionStorage = require('connect-mongo')(session);
 var mongoose = require('mongoose');
+
 require('dotenv').config();
 
 database();
@@ -19,6 +20,15 @@ mongoose.connect(process.env.db, {
 mongoose.Promise = global.Promise;
 const mdb = mongoose.connection;
 
+var app = express();
+
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+app.use(function(req, res, next){
+  res.io = io;
+  next();
+});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -26,9 +36,8 @@ var registerRouter = require('./routes/register');
 var dashRouter = require('./routes/panel');
 var orderRouter = require('./routes/orders')
 var ProjectsRouter = require('./routes/project');
+var MessengerRouter = require('./routes/messages');
 
-
-var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -70,6 +79,7 @@ app.use('/register', registerRouter);
 app.use('/dashboard', dashRouter);
 app.use('/ordenes', orderRouter);
 app.use('/projects', ProjectsRouter);
+app.use('/messenger',MessengerRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -87,4 +97,4 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+module.exports = {app: app, server: server};

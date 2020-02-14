@@ -62,7 +62,7 @@
                                     <span class="bot-line"></span> Ordenes </a>
                             </li>
                             <li>
-                                <a href="/">
+                                <a href="/messenger">
                                     <i class="fas fa-envelope"></i>
                                     <span class="bot-line"></span> Mensajes </a>
                             </li>
@@ -152,7 +152,7 @@
                                 <span class="bot-line"></span> Ordenes </a>
                         </li>
                         <li>
-                            <a href="/">
+                            <a href="/messenger">
                                 <i class="fas fa-envelope"></i>
                                 <span class="bot-line"></span> Mensajes </a>
                         </li>
@@ -228,10 +228,12 @@
                                             <th>Cantidad de equipos</th>
                                             <th>Preventivos restantes</th>
                                             <th>Correctivos restantes</th>
+                                            <th>Cantidad de personal</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <% var ini = 0; %>
                                         <% data.projects.forEach(element => { %>
                                             <tr>
                                                 <td><%= element.Nombre %></td>
@@ -239,6 +241,7 @@
                                                 <td class="desc"><%= element.Equipos %></td>
                                                 <td><%= element.Preventivos.Cantidad %></td>
                                                 <td><%= element.Correctivos.Cantidad %></td>
+                                                <td><%= data.Conteo[ini].count %></td>
                                                 <td>
                                                     <div class="table-data-feature">
                                                         <a href="/projects/edit/<%= element._id %>">
@@ -257,7 +260,8 @@
                                                         </button>
                                                     </div>
                                                 </td>
-                                            </tr>                                            
+                                            </tr>
+                                            <% ini++; %>
                                         <% }); %>
                                     </tbody>
                                 </table>

@@ -11,16 +11,24 @@ router.get('/', function (req, res, next) {
         var id = req.session.data.userID;
         var mail = req.session.data.email;
         var ListaProyectos = Project.find();
-        var ConteoPersonal = Project.aggregate([{
-            "$project": {
-                "count": {
-                    "$reduce": {
-                        "input": "$Personal",
-                        "initialValue": 0
-                    }
+        var ConteoPersonal = Project.aggregate()
+            .project({
+                "personalSize": {
+                    "$size": "$Personal"
                 }
-            }
-        }]);
+            })
+            .group({
+                "_id" : null,
+                "count" : {
+                    "$sum" : "$personalSize"
+                }
+            });
+            /*
+            .exec((bad, gud) => {
+                if (bad) throw bad;
+                console.log(gud[0].count);
+            })
+            */
         var Info = {
             projects: ListaProyectos.exec.bind(ListaProyectos),
             Conteo: ConteoPersonal.exec.bind(ConteoPersonal)
@@ -109,7 +117,9 @@ router.post('/continue/:projectID', (req, res, next) => {
     _t.forEach(element => {
         var a = {
             Tipo: element[0],
-            Costo: element[1]
+            Costo: (Number(element[1])).toFixed(2),
+            Utilidad: (Number(element[1]) * 0.5).toFixed(2),
+            Valor: (Number(element[1]) * 1.5).toFixed(2)
         }
         Personal.push(a);
     });

@@ -5,28 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Creación de proyecto</title>
+    <title>Dashboard de <%= username %></title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 
     <!-- Fontfaces CSS-->
-    <link href="/p/font-face.css" rel="stylesheet" media="all">
-    <link href="/p/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="/p/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="/p/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    
+    <link href="p/font-face.css" rel="stylesheet" media="all">
+    <link href="p/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="p/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="p/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
     <!-- Vendor CSS-->
-    <link href="/p/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="/p/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="/p/wow/animate.css" rel="stylesheet" media="all">
-    <link href="/p/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="/p/slick/slick.css" rel="stylesheet" media="all">
-    <link href="/p/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="/p/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <link href="p/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="p/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="p/wow/animate.css" rel="stylesheet" media="all">
+    <link href="p/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="p/slick/slick.css" rel="stylesheet" media="all">
+    <link href="p/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="p/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="/p/theme.css" rel="stylesheet" media="all">
+    <link href="p/theme.css" rel="stylesheet" media="all">
     <link rel="stylesheet" href="/css/dashboard.css">
 
 
@@ -62,7 +62,7 @@
                                     <span class="bot-line"></span> Ordenes </a>
                             </li>
                             <li>
-                                <a href="/messenger">
+                                <a href="/">
                                     <i class="fas fa-envelope"></i>
                                     <span class="bot-line"></span> Mensajes </a>
                             </li>
@@ -152,7 +152,7 @@
                                 <span class="bot-line"></span> Ordenes </a>
                         </li>
                         <li>
-                            <a href="/messenger">
+                            <a href="/">
                                 <i class="fas fa-envelope"></i>
                                 <span class="bot-line"></span> Mensajes </a>
                         </li>
@@ -204,88 +204,6 @@
         <!-- PAGE CONTENT-->
         <div class="page-content--bgf7">
 
-            <div class="section__content section__content--p30">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-body card-block">
-                                    <div class="card-title">
-                                        <h3 class="text-center title-2"> Crear nuevo proyecto</h3>
-                                    </div>
-                                    <hr>
-                                    <form action="/projects/create" method="post">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="project" class=" form-control-label">Nombre del proyecto</label>
-                                                    <input type="text" id="project" placeholder="Ingrese el nombre del proyecto" class="form-control col-4" name="project">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="client" class=" form-control-label">Nombre del cliente</label>
-                                                    <input type="text" id="client" placeholder="Ingrese el nombre del proyecto" class="form-control col-4" name="client">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="quantity" class="form-control-label">Cantidad de equipos</label>
-                                                    <input class="form-control col-2" id="quantity" name="quantity" min="1" value="1" type="number">
-                                                </div>    
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 col-lg-6 col-sm-12">
-                                                <h4 class="h4">Cantidad de visitas preventivas</h4>
-                                                <div class="form-group">
-                                                    <label for="quantityPreventive" class="form-control-label">Cantidad de visitas</label>
-                                                    <input class="form-control col-4" id="quantityPreventive" name="quantityPreventive" min="1" value="1" type="number">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="PreventiveHour" class="form-control-label">Horas hombre por preventivo</label>
-                                                    <input type="text" class="form-control col-4" name="PreventiveHour" id="PreventiveHour" im-insert="true">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="AnualPreventiveHour" class="form-control-label">Horas hombre por preventivo anual</label>
-                                                    <input type="text" class="form-control col-4" name="AnualPreventiveHour" id="AnualPreventiveHour" im-insert="true">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="LostPreventive" class="form-control-label">Horas perdidas</label>
-                                                    <input type="text" class="form-control col-4" name="LostPreventive" id="LostPreventive" im-insert="true">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="ChangePreventive" class="form-control-label">Horas por cambio de repuesto</label>
-                                                    <input type="text" class="form-control col-4" name="ChangePreventive" id="ChangePreventive" im-insert="true">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-lg-6 col-sm-12">
-                                                <h4 class="h4">Cantidad de visitas correctivas</h4>
-                                                <div class="form-group">
-                                                    <label for="quantityCorrect" class="form-control-label">Cantidad de visitas</label>
-                                                    <input class="form-control col-4" id="quantityCorrect" name="quantityCorrect" min="1" value="1" type="number">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="CorrectiveHour" class="form-control-label">Horas hombre por correctivo</label>
-                                                    <input type="text" class="form-control col-4" name="CorrectiveHour" id="CorrectiveHour">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="LostCorrective" class="form-control-label">Horas perdidas</label>
-                                                    <input type="text" class="form-control col-4" name="LostCorrective" id="LostCorrective">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="ChangeCorrective" class="form-control-label">Horas hombre por repuestos en garantia</label>
-                                                    <input type="text" class="form-control col-4" name="ChangeCorrective" id="ChangeCorrective">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 offset-md-4">
-                                                <button type="submit" class="btn btn-outline-success btn-lg btn-block">CONTINUAR</button>
-                                                <button class="btn btn-outline-primary btn-lg btn-block">GUARDAR</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- COPYRIGHT-->
             <section class="p-t-60 p-b-20">
@@ -306,21 +224,20 @@
     </div>
 
     <!-- Vendor JS       -->
-    <script src="/p/slick/slick.min.js"></script>
-    <script src="/p/wow/wow.min.js"></script>
-    <script src="/p/animsition/animsition.min.js"></script>
-    <script src="/p/bootstrap-progressbar/bootstrap-progressbar.min.js"> </script>
-    <script src="/p/counter-up/jquery.waypoints.min.js"></script>
-    <script src="/p/counter-up/jquery.counterup.min.js"> </script>
-    <script src="/p/circle-progress/circle-progress.min.js"></script>
-    <script src="/p/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="/p/chartjs/Chart.bundle.min.js"></script>
-    <script src="/p/select2/select2.min.js"></script>
-    <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+    <script src="p/slick/slick.min.js"></script>
+    <script src="p/wow/wow.min.js"></script>
+    <script src="p/animsition/animsition.min.js"></script>
+    <script src="p/bootstrap-progressbar/bootstrap-progressbar.min.js"> </script>
+    <script src="p/counter-up/jquery.waypoints.min.js"></script>
+    <script src="p/counter-up/jquery.counterup.min.js"> </script>
+    <script src="p/circle-progress/circle-progress.min.js"></script>
+    <script src="p/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="p/chartjs/Chart.bundle.min.js"></script>
+    <script src="p/select2/select2.min.js"></script>
 
     <!-- Main JS-->
-    <script src="/p/main.js"></script>
-    <script src="/script/project.js"></script>
+    <script src="p/main.js"></script>
+
 </body>
 
 </html>

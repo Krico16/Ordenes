@@ -31,7 +31,7 @@ $(function () {
             data: { asd: vals},
             success: (res) => {
                 if(res == 'Saved'){
-                    window.location = '../projects'
+                    window.location = '../../dashboard'
                 }
             },
             error: (err) => {

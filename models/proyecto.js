@@ -11,15 +11,15 @@ const PersonalSchema = new mongoose.Schema({
 
 const PreventivoSchema = new mongoose.Schema({
     Cantidad: Number,
-    HorasxPreventivo : Number,
-    HorasxPreventivoAnual : Number,
-    HorasPerdidas : Number,
+    HorasxPreventivo: Number,
+    HorasxPreventivoAnual: Number,
+    HorasPerdidas: Number,
     HorasxCambio: Number
 });
 
 const CorrectivoSchema = new mongoose.Schema({
     Cantidad: Number,
-    HorasxCorrectivo : Number,
+    HorasxCorrectivo: Number,
     HorasxRepuesto: Number,
     HorasPerdidas: Number
 });
@@ -43,15 +43,6 @@ const ProjectSchema = new mongoose.Schema({
 });
 
 
-PersonalSchema.pre("save", (next) => {
-    var model = this;
-    model.Utilidad = model.Costo * 0.5;
-    model.Valor = model.Costo * 1.5;
-    next();
-});
-
 var Project = mongoose.model('Project', ProjectSchema);
-var Personal = mongoose.model('Personal', PersonalSchema);
 
 module.exports = Project;
-module.exports = Personal;
