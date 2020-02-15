@@ -1,66 +1,57 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../firebase');
-var fb = require('firebase-admin');
 
+var cont = 0;
+var conectados = {};
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    var chat = db.collection('messages')
-        .orderBy('time', 'desc')
-        .limit(15);
-    var lista = Array();
-    chat.onSnapshot((val) => {
-        val.docChanges().forEach((change) => {
-            if (change.type === 'removed') {
+    if (req.session.data) {
+        var nick = req.session.data.nick;
+        var id = req.session.data.UserID;
+        var mail = req.session.data.email;
 
-            } else {
-                var msg = change.doc.data();
-                lista.push(msg);
-            }
-        })
-        res.io.emit('messages',  lista);
-        res.render('test');
-    });
-
-
-    //res.send('respond with a resource');
-});
-
-router.get('/a', function(req, res, net){
-    res.io.emit('socketToMe', 'users');
-    res.render('test');
+        res.render('Message', {
+            username: nick,
+            userid: id,
+            email: mail
+        });
+    } else {
+        res.redirect('/');
+    }
 });
 
 router.post('/', function (req, res, next) {
-    var nick = req.body.nick;
+    //var sender = req.session.data.nick;
+    var recepter = req.body.dest;
     var txt = req.body.message;
+    var s = req.body.nick
 
-    db.collection('messages').add({
-        name: nick,
-        content: txt,
-        time: fb.firestore.FieldValue.serverTimestamp()
-    }).catch((err) => {
-        console.log('Error enviando mensaje: ', err);
-    });
-    //res.io.emit('messages',{name: nick, content: txt});
-    res.send('Mensaje enviado: ' + txt)
-
+    res.io.emit('ms', {conectados: cont});
+    res.json({
+        msg: 'success'
+    })
 })
 
-module.exports = router;
-
-/*
 
 module.exports = function(io){
-    var app = require('express');
-    var router = app.Router();
 
-    io.on('connection', (socket) =>  {
-        console.log('Usuario Conectado');
+    io.on('connection', (socket) => {
+        socket.on('register', (username) => {
+            console.log(username);
+            
+            socket.username = username;
+            conectados[username] = socket.id;
+        });
+        cont++;
+        socket.on('disconnect', function(){
+            var id = socket.id;
+            delete conectados.id;
+            cont--;
+            io.emit('online', {conectados: cont, lista: conectados});
+        })
+        console.log(conectados);
+        io.emit('online', {conectados: cont, lista: conectados});
     })
-
     return router;
-}
-
-*/
+};

@@ -21,22 +21,12 @@ mongoose.Promise = global.Promise;
 const mdb = mongoose.connection;
 
 var app = express();
+app.io = require('socket.io')();
 
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-
-app.use(function(req, res, next){
-  res.io = io;
+app.use((req , res , next) => {
+  res.io = app.io;
   next();
 });
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var registerRouter = require('./routes/register');
-var dashRouter = require('./routes/panel');
-var orderRouter = require('./routes/orders')
-var ProjectsRouter = require('./routes/project');
-var MessengerRouter = require('./routes/messages');
 
 
 // view engine setup
@@ -73,12 +63,26 @@ app.use(session({
   expires: 60 * 60 * 3
 }));
 
+
+var indexRouter = require('./routes/index');
 app.use('/', indexRouter);
+
+var usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
+
+var registerRouter = require('./routes/register');
 app.use('/register', registerRouter);
+
+var dashRouter = require('./routes/panel');
 app.use('/dashboard', dashRouter);
+
+var orderRouter = require('./routes/orders')
 app.use('/ordenes', orderRouter);
+
+var ProjectsRouter = require('./routes/project');
 app.use('/projects', ProjectsRouter);
+
+var MessengerRouter = require('./routes/messages')(app.io);
 app.use('/messenger',MessengerRouter);
 
 // catch 404 and forward to error handler
@@ -97,4 +101,4 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-module.exports = {app: app, server: server};
+module.exports = app;
