@@ -5,28 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Mensajes</title>
+    <title>Creación de proyecto</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 
     <!-- Fontfaces CSS-->
-    <link href="p/font-face.css" rel="stylesheet" media="all">
-    <link href="p/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="p/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="p/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="/p/font-face.css" rel="stylesheet" media="all">
+    <link href="/p/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="/p/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="/p/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
     <!-- Vendor CSS-->
-    <link href="p/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="p/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="p/wow/animate.css" rel="stylesheet" media="all">
-    <link href="p/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="p/slick/slick.css" rel="stylesheet" media="all">
-    <link href="p/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="p/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <link href="/p/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="/p/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="/p/wow/animate.css" rel="stylesheet" media="all">
+    <link href="/p/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="/p/slick/slick.css" rel="stylesheet" media="all">
+    <link href="/p/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/p/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="p/theme.css" rel="stylesheet" media="all">
+    <link href="/p/theme.css" rel="stylesheet" media="all">
     <link rel="stylesheet" href="/css/dashboard.css">
 
 
@@ -62,7 +62,7 @@
                                     <span class="bot-line"></span> Ordenes </a>
                             </li>
                             <li>
-                                <a href="/messenger">
+                                <a href="/">
                                     <i class="fas fa-envelope"></i>
                                     <span class="bot-line"></span> Mensajes </a>
                             </li>
@@ -206,28 +206,44 @@
 
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-                    <br>
                     <div class="row">
-                        <div class="col-12"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-3">
+                        <div class="col-lg-12">
                             <div class="card">
-                                <h5 class="card-header">Lista de usuarios conectados</h5>
-                                <div class="card-body">
-                                    <div class="list-group" id="connected"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row-9">
-                            <div class="card">
-                                <h5 class="card-header" id="remitente">{Nombre de usuario}</h5>
-                                <div class="card-body">
-                                    <div class="messages-area" id="msgarea"></div>
-                                    <div class="send-message">
-                                        <input type="text" class="form-control" id="msgbody" onkeydown="sendMsg()">
-                                        <button class="btn btn-success" onclick="send()">Enviar</button>
+                                <div class="card-body card-block">
+                                    <div class="card-title">
+                                        <h3 class="text-center title-2">Editar el proyecto <%= data.proyecto.Nombre %>
+                                        </h3>
                                     </div>
+                                    <div class="card-body">
+                                        <form action="" method="POST" id="f1">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="dynamic-field">
+                                                    <thead>
+                                                        <td>Descripción del repuesto</td>
+                                                        <td>Cantidad</td>
+                                                        <td>Medida</td>
+                                                        <td></td>
+                                                    </thead>
+                                                    <tr>
+                                                        <td><input type="text" name="pieza[][objeto]"
+                                                                class="form-control"></td>
+                                                        <td><input type="text" name="pieza[][cantidad]"
+                                                                class="form-control"></td>
+                                                        <td><select name="pieza[][medida]">
+                                                                <option value="und">Unidad</option>
+                                                                <option value="L">Litros</option>
+                                                                <option value="kg">Kilogramos</option>
+                                                            </select></td>
+                                                        <td><button type="button" class="btn btn-info"
+                                                                id="plus">Agregar</button></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <button class="btn btn-success" type="button"
+                                                onclick="sendData()">Guardar</button>
+                                        </form>
+                                    </div>
+                                    <hr>
                                 </div>
                             </div>
                         </div>
@@ -250,78 +266,63 @@
             </section>
             <!-- END COPYRIGHT-->
         </div>
-        <input type="text" value="<%= username %>" style="display: none;" id="chatID">
+
     </div>
 
     <!-- Vendor JS       -->
-    <script src="p/slick/slick.min.js"></script>
-    <script src="p/wow/wow.min.js"></script>
-    <script src="p/animsition/animsition.min.js"></script>
-    <script src="p/bootstrap-progressbar/bootstrap-progressbar.min.js"> </script>
-    <script src="p/counter-up/jquery.waypoints.min.js"></script>
-    <script src="p/counter-up/jquery.counterup.min.js"> </script>
-    <script src="p/circle-progress/circle-progress.min.js"></script>
-    <script src="p/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="p/chartjs/Chart.bundle.min.js"></script>
-    <script src="p/select2/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="/p/slick/slick.min.js"></script>
+    <script src="/p/wow/wow.min.js"></script>
+    <script src="/p/animsition/animsition.min.js"></script>
+    <script src="/p/bootstrap-progressbar/bootstrap-progressbar.min.js"> </script>
+    <script src="/p/counter-up/jquery.waypoints.min.js"></script>
+    <script src="/p/counter-up/jquery.counterup.min.js"> </script>
+    <script src="/p/circle-progress/circle-progress.min.js"></script>
+    <script src="/p/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/p/chartjs/Chart.bundle.min.js"></script>
+    <script src="/p/select2/select2.min.js"></script>
+    <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+    <script src="/repeater/jquery.repeater.min.js"></script>
 
     <!-- Main JS-->
-    <script src="p/main.js"></script>
+    <script src="/p/main.js"></script>
+    <script src="/script/personal.js"></script>
     <script>
-        var socket = io('//localhost:3000');
-        var username = $("#chatID").val();
-        var myID = "";
-        var rID = "";
-        var rNick = "";
-        window.onload = function () {
-            socket.on('online', (data) => {
-                var ins = ``;
-                console.log(data)
-                $("#c").text(data.conectados);
-                for (const key in data.lista) {
-                    if (data.lista.hasOwnProperty(key)) {
-                        const element = data.lista[key];
-                        if (key !== username) { //
-                            ins +=
-                                `<p class="list-group-item list-group-item-action" onClick="setName('${element}','${key}')">${key}</p>`;
-                        } else {
-                            myID = element;
-                        }
+        $(function () {
+            var i = 1;
+            $('#plus').click(function () {
+                i++;
+                $('#dynamic-field').append('<tr id="row' + i + '" class="dynamic-added">' +
+                    '<td><input type="text" name="pieza[][objeto]" class="form-control"></td>' +
+                    '<td><input type="text" name="pieza[][cantidad]" class="form-control"></td>' +
+                    '<td><select name="pieza[][medida]"><option value="und">Unidad</option><option value="L">Litros</option><option value="kg">Kilogramos</option></select></td>' +
+                    '<td><button type="button" name="remove" id="' + i +
+                    '" class="btn btn-danger btn_remove">X</button></td>' +
+                    '</tr>');
+            });
+
+        });
+
+        function sendData() {
+            var form = document.getElementById('f1');
+            for (i = 0; i <= form.length; i++) {
+                var formactual = form[i];
+                console.log(formactual)
+                $.ajax({
+                    method: 'POST',
+                    data: formactual,
+                    success: (res) => {
+                        console.log(res);
+                    },
+                    error:(err) => {
+                        console.log(err);
                     }
-                }
-                $("#connected").html(ins);
-            });
-            socket.on('msgs', (data) => {
-                if (data.to == myID) {
-                    var cuerpo = data.m;
-                    $("#msgarea").append(`<h4>${cuerpo}</h4>`);
-                }
-            });
-        }
-
-
-        socket.emit('register', username);
-
-        function setName(id, nick) {
-            rID = id;
-            rNick = nick;
-            $("#remitente").text(rNick);
-        }
-
-        function sendMsg() {
-            if (event.keyCode == 13) {
-                send();
+                });
             }
-        }
-
-        function send() {
-            var txt = $("#msgbody").val();
-            $("#msgbody").val('');
-            socket.emit('message', {
-                id: rID,
-                body: txt
+            /*
+            $.ajax({
+                data: form
             })
+            */
         }
     </script>
 </body>

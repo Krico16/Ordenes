@@ -43,7 +43,6 @@ router.post('/', function (req, res, next) {
           }
           req.session.data = UserData;
           req.session.save();
-          console.log(req.session.data);
           res.redirect('/dashboard');
         } else {
           res.redirect('/');

@@ -23,12 +23,6 @@ router.get('/', function (req, res, next) {
                     "$sum" : "$personalSize"
                 }
             });
-            /*
-            .exec((bad, gud) => {
-                if (bad) throw bad;
-                console.log(gud[0].count);
-            })
-            */
         var Info = {
             projects: ListaProyectos.exec.bind(ListaProyectos),
             Conteo: ConteoPersonal.exec.bind(ConteoPersonal)
@@ -39,7 +33,6 @@ router.get('/', function (req, res, next) {
                 res.status(500).send(ERR);
                 return;
             }
-            console.log(success);
 
             res.render('projects', {
                 username: nick,
@@ -97,6 +90,36 @@ router.get('/continue/:projectID', (req, res, next) => {
             });
         });
     }
+});
+
+router.get('/edit/:projectID', (req, res, next) => {
+    if (req.session.data) {
+        var nick = req.session.data.nick;
+        var id = req.session.data.userID;
+        var mail = req.session.data.email;
+
+        var idProject = new ObjectID(req.params.projectID);
+        var ProjectData = Project.findOne({ _id : idProject});
+
+        var Info = { proyecto: ProjectData.exec.bind(ProjectData) };
+
+        sync.parallel( Info , (err, done) => {
+            if( err ){
+                res.status(500).send(err);
+            } else {
+                res.render('edit', {
+                    username: nick,
+                    userid: id,
+                    email: mail,
+                    data: done
+                })
+            }
+        });
+    }
+});
+
+router.post('/edit/:projectID', (req, res, next) =>  {
+    res.json(req.body);
 });
 
 router.post('/continue/:projectID', (req, res, next) => {

@@ -24,6 +24,12 @@ const CorrectivoSchema = new mongoose.Schema({
     HorasPerdidas: Number
 });
 
+const RespuestoSchema  = new mongoose.Schema({
+    Elemento: String,
+    Cantidad: Number,
+    Medida: String
+});
+
 const ProjectSchema = new mongoose.Schema({
     Nombre: {
         type: String,
@@ -39,7 +45,8 @@ const ProjectSchema = new mongoose.Schema({
     },
     Preventivos: PreventivoSchema,
     Correctivos: CorrectivoSchema,
-    Personal: [PersonalSchema]
+    Personal: [PersonalSchema],
+    Repuestos : [RespuestoSchema]
 });
 
 

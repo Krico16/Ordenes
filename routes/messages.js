@@ -21,27 +21,17 @@ router.get('/', function (req, res, next) {
     }
 });
 
-router.post('/', function (req, res, next) {
-    //var sender = req.session.data.nick;
-    var recepter = req.body.dest;
-    var txt = req.body.message;
-    var s = req.body.nick
-
-    res.io.emit('ms', {conectados: cont});
-    res.json({
-        msg: 'success'
-    })
-})
-
-
 module.exports = function(io){
 
     io.on('connection', (socket) => {
         socket.on('register', (username) => {
-            console.log(username);
-            
             socket.username = username;
             conectados[username] = socket.id;
+        });
+        socket.on('message', (data) => {
+            var id = data.id;
+            var txt = data.body;
+            socket.broadcast.emit('msgs', {to: id, m: txt});
         });
         cont++;
         socket.on('disconnect', function(){
@@ -50,7 +40,6 @@ module.exports = function(io){
             cont--;
             io.emit('online', {conectados: cont, lista: conectados});
         })
-        console.log(conectados);
         io.emit('online', {conectados: cont, lista: conectados});
     })
     return router;
