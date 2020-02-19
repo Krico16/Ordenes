@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var sync = require('async');
+var multiparty = require('multiparty');
 var ObjectID = require('mongoose').Types.ObjectId;
+var firebase = require('../firebase');
 
 var Project = require('../models/proyecto');
 
@@ -18,9 +20,9 @@ router.get('/', function (req, res, next) {
                 }
             })
             .group({
-                "_id" : null,
-                "count" : {
-                    "$sum" : "$personalSize"
+                "_id": null,
+                "count": {
+                    "$sum": "$personalSize"
                 }
             });
         var Info = {
@@ -45,7 +47,6 @@ router.get('/', function (req, res, next) {
         res.redirect('/');
     }
 });
-
 
 router.get('/new', function (req, res, next) {
     if (req.session.data) {
@@ -99,12 +100,16 @@ router.get('/edit/:projectID', (req, res, next) => {
         var mail = req.session.data.email;
 
         var idProject = new ObjectID(req.params.projectID);
-        var ProjectData = Project.findOne({ _id : idProject});
+        var ProjectData = Project.findOne({
+            _id: idProject
+        });
 
-        var Info = { proyecto: ProjectData.exec.bind(ProjectData) };
+        var Info = {
+            proyecto: ProjectData.exec.bind(ProjectData)
+        };
 
-        sync.parallel( Info , (err, done) => {
-            if( err ){
+        sync.parallel(Info, (err, done) => {
+            if (err) {
                 res.status(500).send(err);
             } else {
                 res.render('edit', {
@@ -118,8 +123,16 @@ router.get('/edit/:projectID', (req, res, next) => {
     }
 });
 
-router.post('/edit/:projectID', (req, res, next) =>  {
-    res.json(req.body);
+router.post('/edit/:projectID', (req, res, next) => {
+    var cuerpo = req.body;
+    var file = __basedir + '/archivos/mal.txt';
+    firebase.storage.upload(file, {destination: 'uploads/text' }).then(data => {
+        console.log('Archivo subido: ');
+        res.json(data)
+    }).catch(exc => {
+        console.log('Error subiendo archivo: ', exc)
+        res.status(500).send(exc);
+    })
 });
 
 router.post('/continue/:projectID', (req, res, next) => {

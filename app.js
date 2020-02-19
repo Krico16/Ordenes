@@ -42,7 +42,7 @@ app.use('/p', express.static(__dirname + '/public/dash'));
 app.use('/inputmask', express.static(__dirname + '/node_modules/inputmask'));
 app.use('/script', express.static(__dirname + '/public/javascripts'))
 app.use('/repeater', express.static( __dirname + '/node_modules/jquery.repeater' ));
-
+global.__basedir = __dirname;
 
 app.use(logger('tiny'));
 app.use(express.json());

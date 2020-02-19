@@ -225,11 +225,10 @@
                                                         <td></td>
                                                     </thead>
                                                     <tr>
-                                                        <td><input type="text" name="pieza[][objeto]"
-                                                                class="form-control"></td>
-                                                        <td><input type="text" name="pieza[][cantidad]"
-                                                                class="form-control"></td>
-                                                        <td><select name="pieza[][medida]">
+                                                        <td><input type="text" name="pieza[0]" placeholder="Nombre del articulo" class="form-control">
+                                                        </td>
+                                                        <td><input type="number" min="0" value="1" name="pieza[0]" class="form-control"></td>
+                                                        <td><select name="pieza[0]">
                                                                 <option value="und">Unidad</option>
                                                                 <option value="L">Litros</option>
                                                                 <option value="kg">Kilogramos</option>
@@ -288,41 +287,38 @@
     <script src="/script/personal.js"></script>
     <script>
         $(function () {
-            var i = 1;
+            var i = 0;
             $('#plus').click(function () {
                 i++;
                 $('#dynamic-field').append('<tr id="row' + i + '" class="dynamic-added">' +
-                    '<td><input type="text" name="pieza[][objeto]" class="form-control"></td>' +
-                    '<td><input type="text" name="pieza[][cantidad]" class="form-control"></td>' +
-                    '<td><select name="pieza[][medida]"><option value="und">Unidad</option><option value="L">Litros</option><option value="kg">Kilogramos</option></select></td>' +
-                    '<td><button type="button" name="remove" id="' + i +
+                    '<td><input type="text" name="pieza['+i+']" class="form-control" placeholder="Nombre del articulo"></td>' +
+                    '<td><input type="number" min="0" value="1" name="pieza['+i+']" class="form-control"></td>' +
+                    '<td><select name="pieza['+i+']"><option value="und">Unidad</option><option value="L">Litros</option><option value="kg">Kilogramos</option></select></td>' +
+                    '<td><button type="button" onclick="removeBtn(' + i + ')"' +
                     '" class="btn btn-danger btn_remove">X</button></td>' +
                     '</tr>');
             });
 
         });
 
+        function removeBtn(number) {
+            $(`#row${number}`).remove();
+        }
+
         function sendData() {
-            var form = document.getElementById('f1');
-            for (i = 0; i <= form.length; i++) {
-                var formactual = form[i];
-                console.log(formactual)
-                $.ajax({
-                    method: 'POST',
-                    data: formactual,
-                    success: (res) => {
-                        console.log(res);
-                    },
-                    error:(err) => {
-                        console.log(err);
-                    }
-                });
-            }
-            /*
+            var form = $("#f1").serialize();
             $.ajax({
-                data: form
-            })
-            */
+                url : '',
+                method: 'POST',
+                data: form,
+                dataType: 'json',
+                success: (res) => {
+                    console.log(res);
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            });
         }
     </script>
 </body>
