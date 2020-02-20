@@ -4,15 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Fontfaces CSS-->
+    <link href="/p/font-face.css" rel="stylesheet" media="all">
+    <link href="/p/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="/p/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="/p/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="/p/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="/p/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="/p/wow/animate.css" rel="stylesheet" media="all">
+    <link href="/p/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="/p/slick/slick.css" rel="stylesheet" media="all">
+    <link href="/p/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/p/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="/p/theme.css" rel="stylesheet" media="all">
 </head>
-<body>
-    
+<body class="animsition">
+    <div class="page-wrapper">
+        <% include insumos.ejs %>
+    </div>
 </body>
-<script>
-    var socket = io('//localhost:3000');
-    socket.on('messages', function( data ){
-        console.log(data);
-    })
-</script>
+    <!-- Vendor JS       -->
+    <script src="/p/slick/slick.min.js"></script>
+    <script src="/p/wow/wow.min.js"></script>
+    <script src="/p/animsition/animsition.min.js"></script>
+    <script src="/p/bootstrap-progressbar/bootstrap-progressbar.min.js"> </script>
+    <script src="/p/counter-up/jquery.waypoints.min.js"></script>
+    <script src="/p/counter-up/jquery.counterup.min.js"> </script>
+    <script src="/p/circle-progress/circle-progress.min.js"></script>
+    <script src="/p/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/p/chartjs/Chart.bundle.min.js"></script>
+    <script src="/p/select2/select2.min.js"></script>
+
+    <!-- Main JS-->
+    <script src="/p/main.js"></script>
 </html>

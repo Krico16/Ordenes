@@ -93,7 +93,7 @@ router.get('/continue/:projectID', (req, res, next) => {
     }
 });
 
-router.get('/edit/:projectID', (req, res, next) => {
+router.get('/repuestos/:projectID', (req, res, next) => {
     if (req.session.data) {
         var nick = req.session.data.nick;
         var id = req.session.data.userID;
@@ -112,7 +112,7 @@ router.get('/edit/:projectID', (req, res, next) => {
             if (err) {
                 res.status(500).send(err);
             } else {
-                res.render('edit', {
+                res.render('repuestos', {
                     username: nick,
                     userid: id,
                     email: mail,
@@ -123,16 +123,37 @@ router.get('/edit/:projectID', (req, res, next) => {
     }
 });
 
-router.post('/edit/:projectID', (req, res, next) => {
+router.get('/insumos/:projectID', (req, res, next) => {
+    if(req.session.data) {
+        var nick = req.session.data.nick;
+        var id = req.session.data.userID;
+        var mail = req.session.data.email;
+        res.render('test', {
+            username: nick,
+            userid: id,
+            email: mail
+        })
+
+    }
+});
+
+router.post('/repuestos/:projectID', (req, res, next) => {
     var cuerpo = req.body;
-    var file = __basedir + '/archivos/mal.txt';
-    firebase.storage.upload(file, {destination: 'uploads/text' }).then(data => {
-        console.log('Archivo subido: ');
-        res.json(data)
-    }).catch(exc => {
-        console.log('Error subiendo archivo: ', exc)
-        res.status(500).send(exc);
-    })
+    var info = Array();
+    var idProject = req.params.projectID;
+    for (const key in cuerpo) {
+        const element = cuerpo[key];
+        var obj = String(element[0]);
+        var cant = Number(element[1])
+        var und = String(element[2])
+        info.push({Elemento: obj, Cantidad: cant, Medida : und  });
+    }
+    Project.findByIdAndUpdate(ObjectID(idProject),{
+        Repuestos: info
+    }, (exc) => {
+        if (exc) console.log('Error actualizando documento:', exc);
+        res.send('Saved')
+    });
 });
 
 router.post('/continue/:projectID', (req, res, next) => {
