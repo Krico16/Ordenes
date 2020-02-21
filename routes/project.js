@@ -90,6 +90,8 @@ router.get('/continue/:projectID', (req, res, next) => {
                 data: good
             });
         });
+    } else {
+        res.redirect('/');
     }
 });
 
@@ -120,6 +122,8 @@ router.get('/repuestos/:projectID', (req, res, next) => {
                 })
             }
         });
+    } else {
+        res.redirect('/');
     }
 });
 
@@ -128,12 +132,28 @@ router.get('/insumos/:projectID', (req, res, next) => {
         var nick = req.session.data.nick;
         var id = req.session.data.userID;
         var mail = req.session.data.email;
-        res.render('test', {
-            username: nick,
-            userid: id,
-            email: mail
-        })
 
+        var idProject = new ObjectID(req.params.projectID);
+        var ProjectData = Project.findOne({
+            _id : idProject
+        });
+
+        var data = {
+            proyecto: ProjectData.exec.bind(ProjectData)
+        };
+
+        sync.parallel(data, (exc, done) => {
+            if(exc) res.status(500).send(exc);
+
+            res.render('insumos', {
+                username: nick,
+                userid: id,
+                email: mail,
+                data: done
+            });
+        });
+    } else {
+        res.redirect('/');
     }
 });
 
@@ -217,7 +237,7 @@ router.post('/create', function (req, res, next) {
             res.redirect('/projects');
         }
         console.log("Proyecto creado: ", doc._id);
-        res.redirect('/projects/edit/' + doc._id);
+        res.redirect('/projects/continue/' + doc._id);
     });
 });
 

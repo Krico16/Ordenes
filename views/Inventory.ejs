@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Creación de proyecto</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Fontfaces CSS-->
+    <link href="/p/font-face.css" rel="stylesheet" media="all">
+    <link href="/p/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="/p/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="/p/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="/p/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="/p/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="/p/wow/animate.css" rel="stylesheet" media="all">
+    <link href="/p/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="/p/slick/slick.css" rel="stylesheet" media="all">
+    <link href="/p/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/p/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="/p/theme.css" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="/css/dashboard.css">
+
+
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+        <% include layouts/header.ejs %>
+
+        <!-- PAGE CONTENT-->
+        <div class="page-content--bgf7">
+
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body card-block">
+                                    <div class="card-title">
+                                        <h3 class="text-center title-2">Inventario</h3>
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="pills-vertical">
+                                            <div class="row">
+                                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                                                    <div class="nav flex-column nav-pills" id="v-pills-tab"
+                                                        role="tablist" aria-orientation="vertical">
+                                                        <a class="nav-link active show" id="insumos-tab"
+                                                            data-toggle="pill" href="#tab-insumos" role="tab"
+                                                            aria-controls="tab-insumos" aria-selected="true">Insumos</a>
+
+                                                        <a class="nav-link" id="repuestos-tab" data-toggle="pill"
+                                                            href="#tab-repuestos" role="tab"
+                                                            aria-controls="tab-repuestos"
+                                                            aria-selected="false">Repuestos</a>
+
+                                                        <a class="nav-link" id="equipos-tab" data-toggle="pill"
+                                                            href="#tab-equipos" role="tab" aria-controls="tab-equipos"
+                                                            aria-selected="false">Equipo</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 ">
+                                                    <div class="tab-content" id="v-pills-tabContent">
+                                                        <div class="tab-pane fade active show" id="tab-insumos"
+                                                            role="tabpanel" aria-labelledby="insumos-tab">
+                                                            <form id="AddInsume" method="post" class="form-inline">
+                                                                <label for="email">Articulo:</label>
+                                                                <input type="text" class="form-control col-4" name="item" placeholder="Nombre del articulo"> &ThickSpace;
+                                                                <label for="pwd">Cantidad</label>
+                                                                <input type="number" name="qnt" max="100" min="0" value="0" class="form-control col-1" placeholder="Cantidad de unidades"> &ThickSpace;&ThickSpace;
+                                                                <button type="submit" id="btnInsum" class="btn btn-primary">Agregar</button>
+                                                            </form>
+                                                            <hr>
+                                                            <ul class="list-group">
+                                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                    Cras justo odio
+                                                                    <span class="badge badge-primary badge-pill">14</span>
+                                                                </li>
+                                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                    Dapibus ac facilisis in
+                                                                    <span class="badge badge-primary badge-pill">2</span>
+                                                                </li>
+                                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                    Morbi leo risus
+                                                                    <span class="badge badge-primary badge-pill">1</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="tab-repuestos" role="tabpanel"
+                                                            aria-labelledby="repuestos-tab">
+                                                            <p>Nullam et tellus ac ligula condimentum sodales.
+                                                                Aenean
+                                                                tincidunt viverra suscipit. Maecenas id molestie
+                                                                est, a
+                                                                commodo nisi. Quisque fringilla turpis nec elit
+                                                                eleifend
+                                                                vestibulum. Aliquam sed purus in odio ullamcorper
+                                                                congue
+                                                                consectetur in neque. Aenean sem ex, tempor et
+                                                                auctor
+                                                                sed, congue id neque. </p>
+                                                        </div>
+
+                                                        <div class="tab-pane fade" id="tab-equipos" role="tabpanel"
+                                                            aria-labelledby="equipos-tab">
+                                                            <p>Vivamus pellentesque vestibulum lectus vitae auctor.
+                                                                Maecenas eu sodales arcu. Fusce lobortis, libero ac
+                                                                cursus feugiat, nibh ex ultricies tortor, id dictum
+                                                                massa nisl ac nisi. Fusce a eros pellentesque, ultricies
+                                                                urna nec, consectetur dolor. Nam dapibus scelerisque
+                                                                risus, a commodo mi tempus eu.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COPYRIGHT-->
+            <section class="p-t-60 p-b-20">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="copyright">
+                                <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a
+                                        href="https://colorlib.com">Colorlib</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- END COPYRIGHT-->
+        </div>
+
+    </div>
+</body>
+<!-- Vendor JS       -->
+<script src="/p/slick/slick.min.js"></script>
+<script src="/p/wow/wow.min.js"></script>
+<script src="/p/animsition/animsition.min.js"></script>
+<script src="/p/bootstrap-progressbar/bootstrap-progressbar.min.js"> </script>
+<script src="/p/counter-up/jquery.waypoints.min.js"></script>
+<script src="/p/counter-up/jquery.counterup.min.js"> </script>
+<script src="/p/circle-progress/circle-progress.min.js"></script>
+<script src="/p/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="/p/chartjs/Chart.bundle.min.js"></script>
+<script src="/p/select2/select2.min.js"></script>
+<script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+<script src="/repeater/jquery.repeater.min.js"></script>
+
+<!-- Main JS-->
+<script src="/p/main.js"></script>
+<script>
+    $(function(){
+        $("#btnInsum").on("click", function(e) {
+            e.preventDefault();
+            const form = $("#AddInsume").serialize();
+            $.ajax({
+                url: window.location,
+                data: form,
+                dataType: 'json',
+                method: 'post',
+                success: (res)=>{
+                    console.log(res);
+                },
+                error: ()=> {
+                    console.log('Error subiendo datos')
+                }
+            });
+        });
+    })
+</script>
+</html>

@@ -1,166 +1,160 @@
-        <!-- HEADER DESKTOP-->
-        <header class="header-desktop3 d-none d-lg-block">
-            <div class="section__content section__content--p35">
-                <div class="header3-wrap">
-                    <div class="header__logo">
-                        <a href="/dashboard">
-                            <img src="https://media.dash.org/wp-content/uploads/dash_logo_2018_black.png"
-                                alt="CoolAdmin" width="178" height="52" />
-                        </a>
-                    </div>
-                    <div class="header__navbar">
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="/dashboard">
-                                    <i class="fas fa-tachometer-alt"></i>
-                                    <span class="bot-line"></span> Panel principal </a>
-                            </li>
-                            <li>
-                                <a href="/projects">
-                                    <i class="fas fa-list"></i>
-                                    <span class="bot-line"></span> Proyectos </a>
-                            </li>
-                            <li>
-                                <a href="/">
-                                    <i class="fas fa-trophy"></i>
-                                    <span class="bot-line"></span> Ordenes </a>
-                            </li>
-                            <li>
-                                <a href="/">
-                                    <i class="fas fa-envelope"></i>
-                                    <span class="bot-line"></span> Mensajes </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="header__tool">
-                        <div class="account-wrap">
-                            <div class="account-item account-item--style2 clearfix js-item-menu">
-                                <div class="image">
-                                    <img src="images/icon/avatar-01.jpg" alt="<%= username %>" />
-                                </div>
-                                <div class="content">
-                                    <a class="js-acc-btn" href="#"><%= username %></a>
-                                </div>
-                                <div class="account-dropdown js-dropdown">
-                                    <div class="info clearfix">
-                                        <div class="image">
-                                            <a href="#">
-                                                <img src="images/icon/avatar-01.jpg" alt="<%= username %>" />
-                                            </a>
-                                        </div>
-                                        <div class="content">
-                                            <h5 class="name">
-                                                <a href="#"><%= username %></a>
-                                            </h5>
-                                            <span class="email"><%= email %></span>
-                                        </div>
-                                    </div>
-                                    <div class="account-dropdown__body">
-                                        <div class="account-dropdown__item">
-                                            <a href="/account">
-                                                <i class="zmdi zmdi-account"></i>Cuenta</a>
-                                        </div>
-                                        <!--
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-settings"></i>Setting</a>
-                                        </div>
-                                        -->
-                                    </div>
-                                    <div class="account-dropdown__footer">
-                                        <a href="/logout">
-                                            <i class="zmdi zmdi-power"></i>Cerrar sesion</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- END HEADER DESKTOP-->
+<!DOCTYPE html>
+<html lang="en">
 
-        <!-- HEADER MOBILE-->
-        <header class="header-mobile header-mobile-2 d-block d-lg-none">
-            <div class="header-mobile__bar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar insumos del proyecto</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Fontfaces CSS-->
+    <link href="/p/font-face.css" rel="stylesheet" media="all">
+    <link href="/p/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="/p/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="/p/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="/p/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="/p/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="/p/wow/animate.css" rel="stylesheet" media="all">
+    <link href="/p/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="/p/slick/slick.css" rel="stylesheet" media="all">
+    <link href="/p/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/p/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="/p/theme.css" rel="stylesheet" media="all">
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+        <% include test.ejs %>
+
+        <!-- PAGE CONTENT-->
+        <div class="page-content--bgf7">
+
+            <div class="section__content section__content--p30">
                 <div class="container-fluid">
-                    <div class="header-mobile-inner">
-                        <a class="logo" href="/dashboard">
-                            <img src="https://media.dash.org/wp-content/uploads/dash_logo_2018_black.png"
-                                alt="CoolAdmin" width="178" height="52" />
-                        </a>
-                        <button class="hamburger hamburger--slider" type="button">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body card-block">
+                                    <div class="card-title">
+                                        <h3 class="text-center title-2">Editar insumos de <%= data.proyecto.Nombre %>
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="" method="POST" id="f1">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="dynamic-field">
+                                                    <thead>
+                                                        <td>Descripción del repuesto</td>
+                                                        <td>Cantidad</td>
+                                                        <td>Medida</td>
+                                                        <td></td>
+                                                    </thead>
+                                                    <tr>
+                                                        <td><input type="text" name="pieza[0]"
+                                                                placeholder="Nombre del articulo" class="form-control">
+                                                        </td>
+                                                        <td><input type="number" min="0" value="1" name="pieza[0]"
+                                                                class="form-control"></td>
+                                                        <td><select name="pieza[0]">
+                                                                <option value="und">Unidad</option>
+                                                                <option value="L">Litros</option>
+                                                                <option value="kg">Kilogramos</option>
+                                                            </select></td>
+                                                        <td><button type="button" class="btn btn-info"
+                                                                id="plus">Agregar</button></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <hr>
+                                            <button class="btn btn-success" type="button"
+                                                onclick="sendData()">Guardar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <nav class="navbar-mobile">
-                <div class="container-fluid">
-                    <ul class="navbar-mobile__list list-unstyled">
-                        <li>
-                            <a href="/dashboard">
-                                <i class="fas fa-tachometer-alt"></i>
-                                <span class="bot-line"></span> Panel principal </a>
-                        </li>
-                        <li>
-                            <a href="/projects">
-                                <i class="fas fa-list"></i>
-                                <span class="bot-line"></span> Proyectos </a>
-                        </li>
-                        <li>
-                            <a href="/">
-                                <i class="fas fa-trophy"></i>
-                                <span class="bot-line"></span> Ordenes </a>
-                        </li>
-                        <li>
-                            <a href="/">
-                                <i class="fas fa-envelope"></i>
-                                <span class="bot-line"></span> Mensajes </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <div class="sub-header-mobile-2 d-block d-lg-none">
-            <div class="header__tool">
-                <div class="account-wrap">
-                    <div class="account-item account-item--style2 clearfix js-item-menu">
-                        <div class="image">
-                            <img src="images/icon/avatar-01.jpg" alt="<%= username %>" />
-                        </div>
-                        <div class="content">
-                            <a class="js-acc-btn" href="#"><%= username %></a>
-                        </div>
-                        <div class="account-dropdown js-dropdown">
-                            <div class="info clearfix">
-                                <div class="image">
-                                    <a href="#">
-                                        <img src="images/icon/avatar-01.jpg" alt="<%= username %>" />
-                                    </a>
-                                </div>
-                                <div class="content">
-                                    <h5 class="name">
-                                        <a href="#"><%= username %></a>
-                                    </h5>
-                                    <span class="email"><%= email %></span>
-                                </div>
-                            </div>
-                            <div class="account-dropdown__body">
-                                <div class="account-dropdown__item">
-                                    <a href="/account">
-                                        <i class="zmdi zmdi-account"></i>Cuenta</a>
-                                </div>
-                            </div>
-                            <div class="account-dropdown__footer">
-                                <a href="/logout">
-                                    <i class="zmdi zmdi-power"></i>Cerrar sesion</a>
+
+            <!-- COPYRIGHT-->
+            <section class="p-t-60 p-b-20">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="copyright">
+                                <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a
+                                        href="https://colorlib.com">Colorlib</a>.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+            <!-- END COPYRIGHT-->
         </div>
-        <!-- END HEADER MOBILE -->
+
+    </div>
+</body>
+<!-- Vendor JS       -->
+<script src="/p/slick/slick.min.js"></script>
+<script src="/p/wow/wow.min.js"></script>
+<script src="/p/animsition/animsition.min.js"></script>
+<script src="/p/bootstrap-progressbar/bootstrap-progressbar.min.js"> </script>
+<script src="/p/counter-up/jquery.waypoints.min.js"></script>
+<script src="/p/counter-up/jquery.counterup.min.js"> </script>
+<script src="/p/circle-progress/circle-progress.min.js"></script>
+<script src="/p/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="/p/chartjs/Chart.bundle.min.js"></script>
+<script src="/p/select2/select2.min.js"></script>
+
+<!-- Main JS-->
+<script src="/p/main.js"></script>
+<script>
+    $(function () {
+        var i = 0;
+        $('#plus').click(function () {
+            i++;
+            $('#dynamic-field').append('<tr id="row' + i + '" class="dynamic-added">' +
+                '<td><input type="text" name="pieza['+i+']" class="form-control" placeholder="Nombre del articulo"></td>' +
+                '<td><input type="number" min="0" value="1" name="pieza['+i+']" class="form-control"></td>' +
+                '<td><select name="pieza['+i+']"><option value="und">Unidad</option><option value="L">Litros</option><option value="kg">Kilogramos</option></select></td>' +
+                '<td><button type="button" onclick="removeBtn(' + i + ')"' +
+                '" class="btn btn-danger btn_remove">X</button></td>' +
+                '</tr>');
+        });
+
+    });
+
+    function removeBtn(number) {
+        $(`#row${number}`).remove();
+    }
+
+    function sendData() {
+        console.log('asd')
+        var form = $("#f1").serialize();
+        $.ajax({
+            url : window.location,
+            method: 'POST',
+            data: form,
+            dataType: 'json',
+            error: (err) => {
+                console.log(err);
+            },
+            complete: (op, txt)=> {
+                if(op.responseText === 'Saved'){
+                    window.location = '../../dashboard';
+                }
+
+            }
+        });
+    }
+
+</script>
+
+</html>

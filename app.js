@@ -23,7 +23,7 @@ const mdb = mongoose.connection;
 var app = express();
 app.io = require('socket.io')();
 
-app.use((req , res , next) => {
+app.use((req, res, next) => {
   res.io = app.io;
   next();
 });
@@ -41,7 +41,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/p', express.static(__dirname + '/public/dash'));
 app.use('/inputmask', express.static(__dirname + '/node_modules/inputmask'));
 app.use('/script', express.static(__dirname + '/public/javascripts'))
-app.use('/repeater', express.static( __dirname + '/node_modules/jquery.repeater' ));
+app.use('/repeater', express.static(__dirname + '/node_modules/jquery.repeater'));
 global.__basedir = __dirname;
 
 app.use(logger('tiny'));
@@ -58,7 +58,7 @@ app.use(session({
     collection: 'sesiones'
   }),
   resave: false,
-  saveUninitialized:  false,
+  saveUninitialized: false,
   maxAge: 60 * 60 * 3,
   expires: 60 * 60 * 3
 }));
@@ -82,8 +82,11 @@ app.use('/ordenes', orderRouter);
 var ProjectsRouter = require('./routes/project');
 app.use('/projects', ProjectsRouter);
 
+var InventoryRouter = require('./routes/inventory');
+app.use('/inventory', InventoryRouter);
+
 var MessengerRouter = require('./routes/messages')(app.io);
-app.use('/messenger',MessengerRouter);
+app.use('/messenger', MessengerRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

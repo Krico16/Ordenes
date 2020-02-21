@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const uri = 'mongodb+srv://Server:WvnGX4qdoDlA0LKj@ordenes-cs6r1.mongodb.net/test?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://pruebas:ZpISw4fc1CNM9TXS@ordenes-cs6r1.mongodb.net/test?retryWrites=true&w=majority';
 
 const IniDB = function() {
     try {
@@ -9,8 +9,11 @@ const IniDB = function() {
             useUnifiedTopology: true,
             useCreateIndex: true,
             useFindAndModify: false
+        }).then(()=> {
+            console.log("Connected to db");
+        }).catch( ex => {
+            console.log("Failed to connect");
         });
-        console.log("Connected to db");
     } catch (e) {
         console.log("Failed to connect");
         throw e;

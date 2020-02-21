@@ -235,28 +235,32 @@
                                     <tbody>
                                         <% var ini = 0; %>
                                         <% data.projects.forEach(element => { %>
+                                            <% var cant = 0; %>
+                                            <% if(data.Conteo[ini]) {cant = data.Conteo[ini].count} else { cant = 0 } %>
                                             <tr>
                                                 <td><%= element.Nombre %></td>
                                                 <td><%= element.Cliente %></td>
                                                 <td class="desc"><%= element.Equipos %></td>
                                                 <td><%= element.Preventivos.Cantidad %></td>
                                                 <td><%= element.Correctivos.Cantidad %></td>
-                                                <td><%= data.Conteo[ini].count %></td>
+                                                <td><%= cant %></td>
                                                 <td>
                                                     <div class="table-data-feature">
                                                         <a href="/projects/repuestos/<%= element._id %>">
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Editar repuestos" data-original-title="Edit">
-                                                            <i class="zmdi zmdi-settings zmd-fw"></i><!--zmdi zmdi-edit-->
-                                                        </button>
+                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Editar repuestos" data-original-title="Edit">
+                                                                <i class="zmdi zmdi-settings zmd-fw"></i><!--zmdi zmdi-edit-->
+                                                            </button>
                                                         </a>
                                                         <a href="/projects/insumos/<%= element._id %>">
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Editar insumos" data-original-title="Edit">
-                                                            <i class="fas fa-boxes"></i>
-                                                        </button>
+                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Editar insumos" data-original-title="Edit">
+                                                                <i class="fas fa-boxes"></i>
+                                                            </button>
                                                         </a>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="More">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </button>
+                                                        <a href="/projects/continue/<%= element._id %>">
+                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="More">
+                                                                <i class="zmdi zmdi-more"></i>
+                                                            </button>
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
