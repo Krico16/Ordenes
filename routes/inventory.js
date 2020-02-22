@@ -1,10 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var insumos = require('../models/inventory').Insumo;
+var ObjectId = require('mongoose').Types.ObjectId;
 var inventario = require('../models/inventory').Inventario;
+var insumos = require('../models/inventory').Insumo;
+var repuestos = require('../models/inventory').Repuesto;
+var equipo = require('../models/inventory').Equipo;
+
 
 router.get('/', (req, res, next) => {
-    if(req.session.data) {
+    if (req.session.data) {
         var nick = req.session.data.nick;
         var id = req.session.data.userID;
         var mail = req.session.data.email;
@@ -17,18 +21,103 @@ router.get('/', (req, res, next) => {
     }
 });
 
-router.post('/', (req, res ,next) => {
+router.post('/Insumos', (req, res, next) => {
     var item = req.body.item;
     var cant = req.body.qnt;
-    var Elemento = {
+    var Registro = new insumos({
         Item: item,
         Cost: cant
-    };
-    const Registro = new insumos(Elemento);
-    Registro.save((exc) => {
-        if(exc) res.json({result: 'Error'});
-        res.json({result: 'Done'})
-    })
+    });
+
+    inventario.findOneAndUpdate({
+        _id: new ObjectId("5e505f7c4f4614b7533888bd")
+    }, {
+        $push: {
+            Insumos: Registro
+        }
+    }, (err) => {
+        if (err) {
+            res.json({
+                result: 'Error',
+                msg: err
+            })
+        } else {
+            inventario.find({}, {
+                "Insumos": "$Insumos"
+            }, (exc, done) => {
+                if (exc) {
+                    res.json({
+                        result: 'Error',
+                        msg: exc
+                    });
+                } else {
+                    res.json({
+                        result: 'Done',
+                        data: done
+                    });
+                }
+            });
+        }
+    });
+});
+
+router.post('/Repuesto', (req, res, next) => {
+    var item = req.body.item;
+    var cant = req.body.qnt;
+    var Registro = new insumos({
+        Item: item,
+        Cost: cant
+    });
+
+    inventario.findOneAndUpdate({
+        _id: new ObjectId("5e5046ff75de0a34243a29c0")
+    }, {
+        $push: {
+            Insumos: Registro
+        }
+    }, (err) => {
+        if (err) {
+            res.json({
+                result: 'Error',
+                msg: err
+            })
+        } else {
+            res.json({
+                result: 'Done'
+            });
+        }
+    });
+
+
+});
+
+router.post('/Equipo', (req, res, next) => {
+    var item = req.body.item;
+    var cant = req.body.qnt;
+    var Registro = new insumos({
+        Item: item,
+        Cost: cant
+    });
+
+    inventario.findOneAndUpdate({
+        _id: new ObjectId("5e5046ff75de0a34243a29c0")
+    }, {
+        $push: {
+            Insumos: Registro
+        }
+    }, (err) => {
+        if (err) {
+            res.json({
+                result: 'Error',
+                msg: err
+            })
+        } else {
+            res.json({
+                result: 'Done'
+            });
+        }
+    });
+
 
 });
 
