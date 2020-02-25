@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var ObjectId = require('mongoose').Types.ObjectId;
+var pl = require('async');
 var inventario = require('../models/inventory').Inventario;
 var insumos = require('../models/inventory').Insumo;
 var repuestos = require('../models/inventory').Repuesto;
@@ -12,11 +13,21 @@ router.get('/', (req, res, next) => {
         var nick = req.session.data.nick;
         var id = req.session.data.userID;
         var mail = req.session.data.email;
+        var Items = inventario.find();
 
-        res.render('inventory', {
-            username: nick,
-            userid: id,
-            email: mail
+        var infoData = { items: Items.exec.bind(Items) };
+
+        pl.parallel(infoData, (ex, done) => {
+            if (ex) {
+                res.status(500).send(ex)
+            } else {
+                res.render('inventory', {
+                    username: nick,
+                    userid: id,
+                    email: mail,
+                    data: done
+                });
+            }
         })
     }
 });
@@ -24,9 +35,10 @@ router.get('/', (req, res, next) => {
 router.post('/Insumos', (req, res, next) => {
     var item = req.body.item;
     var cant = req.body.qnt;
+    var prc = req.body.price
     var Registro = new insumos({
         Item: item,
-        Cost: cant
+        Stored: cant
     });
 
     inventario.findOneAndUpdate({

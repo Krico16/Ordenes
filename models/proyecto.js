@@ -30,6 +30,11 @@ const RespuestoSchema  = new mongoose.Schema({
     Medida: String
 });
 
+const InsumoSchema = new mongoose.Schema({
+    Descripcion: String,
+    Cantidad: Number
+});
+
 const ProjectSchema = new mongoose.Schema({
     Nombre: {
         type: String,
@@ -46,7 +51,8 @@ const ProjectSchema = new mongoose.Schema({
     Preventivos: PreventivoSchema,
     Correctivos: CorrectivoSchema,
     Personal: [PersonalSchema],
-    Repuestos : [RespuestoSchema]
+    Repuestos : [RespuestoSchema],
+    Insumos : [InsumoSchema]
 });
 
 

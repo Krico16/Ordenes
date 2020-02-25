@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var InsumoSchema = new mongoose.Schema({
     Item: String,
+    Stored: Number,
     Cost : Number
 });
 

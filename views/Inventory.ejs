@@ -74,26 +74,46 @@
                                                         <div class="tab-pane fade active show" id="tab-insumos"
                                                             role="tabpanel" aria-labelledby="insumos-tab">
                                                             <form id="AddInsume" method="post" class="form-inline">
-                                                                <label for="email">Articulo:</label>
-                                                                <input type="text" class="form-control col-4" name="item" placeholder="Nombre del articulo"> &ThickSpace;
-                                                                <label for="pwd">Cantidad</label>
-                                                                <input type="number" name="qnt" max="100" min="0" value="0" class="form-control col-1" placeholder="Cantidad de unidades"> &ThickSpace;&ThickSpace;
-                                                                <button type="submit" id="btnInsum" class="btn btn-primary">Agregar</button>
+                                                                <div class="input-group mb-2 col-4 ">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text" id="basic-addon1">Artículo</span>
+                                                                    </div>
+                                                                    <input type="text" class="form-control" placeholder="Nombre del articulo" name="item">
+                                                                </div>
+                                                                <div class="input-group mb-2 col-3 ">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text" id="basic-addon1">Stock</span>
+                                                                    </div>
+                                                                    <input type="number" class="form-control" placeholder="Cantidad en stock" max="100" min="0" value="1"  name="qnt">
+                                                                </div>
+                                                                <div class="input-group mb-2 col-4 ">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text" id="basic-addon1">Precio</span>
+                                                                    </div>
+                                                                    <select class="custom-select col-4" id="inputGroupSelect02">
+                                                                        <option value="USD">USD</option>
+                                                                        <option value="SOL">SOL</option>
+                                                                    </select>
+                                                                    <input type="text" class="form-control" placeholder="Precio unitario" name="price" id="pr">
+                                                                </div>
+                                                                <div class="input-group mb-2 col-1">
+                                                                    <button type="submit" id="btnInsum" class="btn btn-primary">Agregar</button>
+                                                                </div>
                                                             </form>
                                                             <hr>
-                                                            <ul class="list-group">
-                                                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                    Cras justo odio
-                                                                    <span class="badge badge-primary badge-pill">14</span>
-                                                                </li>
-                                                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                    Dapibus ac facilisis in
-                                                                    <span class="badge badge-primary badge-pill">2</span>
-                                                                </li>
-                                                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                    Morbi leo risus
-                                                                    <span class="badge badge-primary badge-pill">1</span>
-                                                                </li>
+                                                            <ul class="list-group" id="list1">
+                                                                <% for (const key in data) { %>
+                                                                    <% const element = data[key]; %>
+                                                                    <% element.forEach(item => { %>
+                                                                        <% var i = item.Insumos; %>
+                                                                        <% for ( const a in i){ %>
+                                                                            <% const v = i[a] %>
+                                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                                <%= v.Item  %> <span class="badge badge-primary badge-pill"><%= v.Cost  %></span>
+                                                                            </li>
+                                                                        <% } %>
+                                                                    <% }); %>
+                                                                <% } %> 
                                                             </ul>
                                                         </div>
                                                         <div class="tab-pane fade" id="tab-repuestos" role="tabpanel"
@@ -131,7 +151,8 @@
                     </div>
                 </div>
             </div>
-
+            <pre>
+        </pre>
             <!-- COPYRIGHT-->
             <section class="p-t-60 p-b-20">
                 <div class="container">
@@ -169,13 +190,20 @@
 <script>
     /**
      *  @param {Array} Data
-     *  @param {String} element
+     *  @param {String} id
     */
-    function GenerarInsumos(Data, element){
+    function GenerarInsumos(Data, id){
+        var list = Data.data[0].Insumos;
+        var r = ``;
+        list.forEach(element => {
+            const t = `<li class="list-group-item d-flex justify-content-between align-items-center"> ${element.Item} <span class="badge badge-primary badge-pill">${element.Cost}</span> </li> `;
+            r += t;
+        });
+        $(`#${id}`).html(r);
     }
 
     $(function(){
-
+        $("#pr").inputmask({alias: 'currency', prefix: ''})
 
         $("#btnInsum").on("click", function(e) {
             e.preventDefault();
@@ -187,7 +215,8 @@
                 method: 'post',
                 success: (res)=>{
                     if(res.result == 'Done'){
-                        GenerarInsumos(res,'asd');
+                        $("#AddInsume").trigger('reset')
+                        GenerarInsumos(res,'list1');
                     }
                 },
                 error: ()=> {
@@ -195,6 +224,9 @@
                 }
             });
         });
-    })
+    
+        $("#")
+    });
+
 </script>
 </html>

@@ -1,9 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var sync = require('async');
-var multiparty = require('multiparty');
 var ObjectID = require('mongoose').Types.ObjectId;
-var firebase = require('../firebase');
 
 var Project = require('../models/proyecto');
 
@@ -31,7 +29,7 @@ router.get('/', function (req, res, next) {
         };
 
         sync.parallel(Info, (ERR, success) => {
-            if (ERR) {
+            if (ERR) { 
                 res.status(500).send(ERR);
                 return;
             }
