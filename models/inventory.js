@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
+/*
 var InsumoSchema = new mongoose.Schema({
     Item: String,
     Stored: Number,
@@ -20,14 +21,17 @@ var EquipoSchema = new mongoose.Schema({
 });
 
 const InventorySchema = new mongoose.Schema({
-    Insumos: [InsumoSchema],
+//    Insumos: [InsumoSchema],
     Repuestos: [RepuestoSchema],
     Equipos: [EquipoSchema]
 });
 
 var Inventario = mongoose.model('Inventory', InventorySchema);
-var Insumo = mongoose.model('Insumo', InsumoSchema);
+//var Insumo = mongoose.model('Insumo', InsumoSchema);
 var Repuesto = mongoose.model('Repuesto', RepuestoSchema);
 var Equipo = mongoose.model('Equipo', EquipoSchema);
 
-module.exports = {Inventario, Insumo, Repuesto, Equipo};
+module.exports = {Inventario, Repuesto, Equipo};
+*/
+
+module.exports = '';
