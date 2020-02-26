@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var projects = require('../models/proyecto');
+var projects = require('../models/proyecto').Project;
 var asinc = require('async');
 
 router.get('/', function (req, res, next) {

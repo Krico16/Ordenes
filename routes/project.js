@@ -3,7 +3,8 @@ var router = express.Router();
 var sync = require('async');
 var ObjectID = require('mongoose').Types.ObjectId;
 
-var Project = require('../models/proyecto');
+var Project = require('../models/proyecto').Project;
+var Insume = require('../models/proyecto').modelInsumo;
 
 router.get('/', function (req, res, next) {
     if (req.session.data) {
@@ -29,7 +30,7 @@ router.get('/', function (req, res, next) {
         };
 
         sync.parallel(Info, (ERR, success) => {
-            if (ERR) { 
+            if (ERR) {
                 res.status(500).send(ERR);
                 return;
             }
@@ -126,14 +127,14 @@ router.get('/repuestos/:projectID', (req, res, next) => {
 });
 
 router.get('/insumos/:projectID', (req, res, next) => {
-    if(req.session.data) {
+    if (req.session.data) {
         var nick = req.session.data.nick;
         var id = req.session.data.userID;
         var mail = req.session.data.email;
 
         var idProject = new ObjectID(req.params.projectID);
         var ProjectData = Project.findOne({
-            _id : idProject
+            _id: idProject
         });
 
         var data = {
@@ -141,7 +142,7 @@ router.get('/insumos/:projectID', (req, res, next) => {
         };
 
         sync.parallel(data, (exc, done) => {
-            if(exc) res.status(500).send(exc);
+            if (exc) res.status(500).send(exc);
 
             res.render('insumos', {
                 username: nick,
@@ -155,6 +156,25 @@ router.get('/insumos/:projectID', (req, res, next) => {
     }
 });
 
+router.post('/insumos/:projectID', (req, res, next) => {
+    var cuerpo = req.body;
+    var idProject = req.params.projectID;
+    var Lista = Array();
+    for (const key in cuerpo) {
+        const element = cuerpo[key];
+        var nInsumo = new Insume();
+        nInsumo.Descripcion = element[0];
+        nInsumo.Cantidad = Number(element[1]);
+        nInsumo.Medida = element[2];
+
+        Lista.push(nInsumo);
+    }
+    Project.findByIdAndUpdate(ObjectID(idProject), { Insumos: Lista }, (exc) => {
+        if (exc) console.log('Error actualizando documento:', exc);
+        res.send('Saved')
+    });
+})
+
 router.post('/repuestos/:projectID', (req, res, next) => {
     var cuerpo = req.body;
     var info = Array();
@@ -164,9 +184,13 @@ router.post('/repuestos/:projectID', (req, res, next) => {
         var obj = String(element[0]);
         var cant = Number(element[1])
         var und = String(element[2])
-        info.push({Elemento: obj, Cantidad: cant, Medida : und  });
+        info.push({
+            Elemento: obj,
+            Cantidad: cant,
+            Medida: und
+        });
     }
-    Project.findByIdAndUpdate(ObjectID(idProject),{
+    Project.findByIdAndUpdate(ObjectID(idProject), {
         Repuestos: info
     }, (exc) => {
         if (exc) console.log('Error actualizando documento:', exc);

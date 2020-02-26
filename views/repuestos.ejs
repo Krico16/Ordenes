@@ -215,7 +215,7 @@
                                         </h3>
                                     </div>
                                     <div class="card-body">
-                                        <form action="" method="POST" id="f1">
+                                        <form method="POST" id="f1">
                                             <div class="table-responsive">
                                                 <table class="table table-bordered" id="dynamic-field">
                                                     <thead>
@@ -295,8 +295,7 @@
                     '<td><input type="number" min="0" value="1" name="pieza['+i+']" class="form-control"></td>' +
                     '<td><select name="pieza['+i+']"><option value="und">Unidad</option><option value="L">Litros</option><option value="kg">Kilogramos</option></select></td>' +
                     '<td><button type="button" onclick="removeBtn(' + i + ')"' +
-                    '" class="btn btn-danger btn_remove">X</button></td>' +
-                    '</tr>');
+                    '" class="btn btn-danger btn_remove">X</button></td>' + '</tr>');
             });
 
         });
@@ -306,7 +305,8 @@
         }
 
         function sendData() {
-            console.log('asd')
+            var pathArray = window.location.pathname.split('/');
+            var id = pathArray[3];
             var form = $("#f1").serialize();
             $.ajax({
                 url : window.location,
@@ -318,13 +318,11 @@
                 },
                 complete: (op, txt)=> {
                     if(op.responseText === 'Saved'){
-                        window.location = '../../dashboard';
+                        window.location = '../insumos/' + id;
                     }
-
                 }
             });
         }
-    
     </script>
 </body>
 

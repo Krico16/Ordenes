@@ -32,7 +32,8 @@ const RepuestoSchema  = new mongoose.Schema({
 
 const InsumoSchema = new mongoose.Schema({
     Descripcion: String,
-    Cantidad: Number
+    Cantidad: Number,
+    Medida: String
 });
 
 const ProjectSchema = new mongoose.Schema({
@@ -63,4 +64,4 @@ var modelInsumo = mongoose.model('Insumo', InsumoSchema);
 
 var Project = mongoose.model('Project', ProjectSchema);
 
-module.exports = Project;
+module.exports = {Project, modelPersonal, modelPreventivo, modelCorrectivo, modelRepuesto, modelInsumo};

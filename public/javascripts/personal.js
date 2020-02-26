@@ -31,7 +31,7 @@ $(function () {
             data: { asd: vals},
             success: (res) => {
                 if(res == 'Saved'){
-                    window.location = '../../dashboard'
+                    window.location = '../insumos/' + id;
                 }
             },
             error: (err) => {
