@@ -136,17 +136,15 @@ router.post('/Equipo', (req, res, next) => {
 module.exports = router;
 
 /**
- * 
- *
- Lista ubicaciones : filtro por proyecto
-Lista de equipos: filtro por proyecto
+Lista ubicaciones : filtro por proyecto
+------- Lista de equipos: filtro por proyecto
 
-Lista de fallas:
-Orden: 
-	Equipo afectado
-	Tipo de falla
-	Descripcion
-	
-Lista de tecnicos
-Agregar reinicio de password
+------- Lista de fallas:
+------- Orden: 
+------- 	Equipo afectado
+------- 	Tipo de falla
+------- 	Descripcion
+
+------- Lista de tecnicos
+------- Agregar reinicio de password
  */

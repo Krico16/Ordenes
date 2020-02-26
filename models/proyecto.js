@@ -24,7 +24,7 @@ const CorrectivoSchema = new mongoose.Schema({
     HorasPerdidas: Number
 });
 
-const RespuestoSchema  = new mongoose.Schema({
+const RepuestoSchema  = new mongoose.Schema({
     Elemento: String,
     Cantidad: Number,
     Medida: String
@@ -51,10 +51,15 @@ const ProjectSchema = new mongoose.Schema({
     Preventivos: PreventivoSchema,
     Correctivos: CorrectivoSchema,
     Personal: [PersonalSchema],
-    Repuestos : [RespuestoSchema],
+    Repuestos : [RepuestoSchema],
     Insumos : [InsumoSchema]
 });
 
+var modelPersonal = mongoose.model('Personal', PersonalSchema);
+var modelPreventivo = mongoose.model('Preventivo', PreventivoSchema);
+var modelCorrectivo = mongoose.model('Correctivo', CorrectivoSchema);
+var modelRepuesto = mongoose.model('Repuesto', RepuestoSchema);
+var modelInsumo = mongoose.model('Insumo', InsumoSchema);
 
 var Project = mongoose.model('Project', ProjectSchema);
 
