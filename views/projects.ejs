@@ -200,6 +200,12 @@
             </div>
         </div>
         <!-- END HEADER MOBILE -->
+        <% var z = data.Conteo %>
+        <% var l = Array(); %>
+        <% for (const item in z) { %>
+            <% const qwe = z[item]; %>
+            <% l.push(qwe.personalSize); %>
+        <% } %>
 
         <!-- PAGE CONTENT-->
         <div class="page-content--bgf7">
@@ -236,14 +242,13 @@
                                         <% var ini = 0; %>
                                         <% data.projects.forEach(element => { %>
                                             <% var cant = 0; %>
-                                            <% if(data.Conteo[ini]) {cant = data.Conteo[ini].count} else { cant = 0 } %>
                                             <tr>
                                                 <td><%= element.Nombre %></td>
                                                 <td><%= element.Cliente %></td>
                                                 <td class="desc"><%= element.Equipos %></td>
                                                 <td><%= element.Preventivos.Cantidad %></td>
                                                 <td><%= element.Correctivos.Cantidad %></td>
-                                                <td><%= cant %></td>
+                                                <td><%= l[ini] %></td>
                                                 <td>
                                                     <div class="table-data-feature">
                                                         <a href="/projects/repuestos/<%= element._id %>">
@@ -290,7 +295,6 @@
             </section>
             <!-- END COPYRIGHT-->
         </div>
-
     </div>
 
     <!-- Vendor JS       -->

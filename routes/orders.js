@@ -4,9 +4,11 @@ var moment = require('moment');
 var ordenModel = require('../models/ordenes');
 
 router.get('/', function (req, res, next) {
-    if (req.session.nick) {
-        var nick = req.session.nick;
-        var id = req.session.userID;
+    if (req.session.data) {
+        var nick = req.session.data.nick;
+        var id = req.session.data.userID;
+        var mail = req.session.data.email;
+
         ordenModel.find({}, (err, docs) => {
             if (err) {
                 console.log("Error obteniendo datos: ", err);
@@ -16,6 +18,7 @@ router.get('/', function (req, res, next) {
             res.render('orderList', {
                 username: nick,
                 userid: id,
+                email: mail,
                 ordenes: docs,
                 moment: moment
             });

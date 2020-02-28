@@ -1,3 +1,11 @@
 var mongoose = require('mongoose');
 
-module.exports = 'a';
+const OrdenSchema = new mongoose.Schema({
+    alv: String
+});
+
+var OrderModel = mongoose.model('Orden', OrdenSchema);
+
+module.exports = {
+    OrderModel
+};

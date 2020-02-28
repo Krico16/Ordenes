@@ -17,12 +17,6 @@ router.get('/', function (req, res, next) {
                 "personalSize": {
                     "$size": "$Personal"
                 }
-            })
-            .group({
-                "_id": null,
-                "count": {
-                    "$sum": "$personalSize"
-                }
             });
         var Info = {
             projects: ListaProyectos.exec.bind(ListaProyectos),
