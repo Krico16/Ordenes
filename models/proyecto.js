@@ -49,6 +49,12 @@ const ProjectSchema = new mongoose.Schema({
     Equipos: {
         type: Number
     },
+    Direccion: {
+        type: String
+    },
+    Contacto: {
+        type: String
+    },
     Preventivos: PreventivoSchema,
     Correctivos: CorrectivoSchema,
     Personal: [PersonalSchema],
