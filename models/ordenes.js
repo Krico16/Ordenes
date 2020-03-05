@@ -1,8 +1,17 @@
 var mongoose = require('mongoose');
 var autoIncrement = require('./Utils/autoIncrement');
 
+const DatosSchema = new mongoose.Schema({
+    FichaTecnica: {
+        type: String
+    },
+    InformeTecnico: {
+        type: String
+    }
+});
+
 const OrdenSchema = new mongoose.Schema({
-    Codigo : {
+    Codigo: {
         type: Number,
         unique: true,
         min: 1
@@ -16,6 +25,20 @@ const OrdenSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    Proyecto: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project'
+    },
+    Motivo: {
+        type: String
+    },
+    Equipo: String,
+    Posicion: String,
+    Datos: Array,
+    Estado: {
+        type: String,
+        enum: ['PENDIENTE', 'NO ATENDIDO', 'ATENDIDO']
+    },
     Cierre: {
         type: Date
     }
@@ -27,7 +50,7 @@ const OrdenSchema = new mongoose.Schema({
 });
 
 OrdenSchema.pre('save', (next) => {
-    if(!this.isNew){
+    if (!this.isNew) {
         next();
         return;
     }
