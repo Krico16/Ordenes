@@ -45,6 +45,7 @@ router.post('/', function (req, res, next) {
           req.session.save();
           res.redirect('/dashboard');
         } else {
+          console.log(error);
           res.redirect('/');
         }
       })

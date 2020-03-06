@@ -51,21 +51,29 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <div class="card">
-                                                <form action="" method="post">
+                                                <form action="ordenes/new" method="POST">
                                                     <div class="card-header d-flex">
                                                         <h4 class="card-header-title">Orden correctiva</h4>
-                                                        <select class="custom-select ml-auto w-auto">
-                                                            <option selected="">Select</option>
+                                                        <select class="custom-select ml-auto w-auto" name="project">
+                                                            <option selected disabled>Select</option>
+                                                            <%  for (const key in data) { const element = data[key]; %>
+                                                                <% element.forEach(e => { %>
+                                                                    <option value="<%= e._id %>"><%= e.Nombre %> </option>
+                                                                <% }); %> 
+                                                            <% } %>             
                                                         </select>
                                                     </div>
                                                     <div class="card-body">
-                                                        <p class="card-text">Some quick example text to build on the
+                                                        <p class="card-text">
+                                                            Some quick example text to build on the
                                                             card title and
                                                             make up the bulk of the card's content.</p>
-                                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                            <button type="submit" class="btn btn-primary">Crear orden</button>
                                                     </div>
                                                 </form>
                                             </div>
+                                        </div>
+                                        <div class="col-4">
                                         </div>
                                     </div>
                                 </div>
@@ -109,3 +117,5 @@
 
 <!-- Main JS-->
 <script src="/p/main.js"></script>
+
+adm2parkingsolutions@gmail.com

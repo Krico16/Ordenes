@@ -55,12 +55,14 @@ app.use(session({
   secret: process.env.PHRASE,
   store: new SessionStorage({
     mongooseConnection: mdb,
-    collection: 'sesiones'
+    collection: 'sesiones',
+    ttl: 60 * 60 * 3
   }),
   resave: false,
   saveUninitialized: false,
-  maxAge: 60 * 60 * 3,
-  expires: 60 * 60 * 3
+  cookie : {
+    maxAge: 1000 * 60 * 60 * 3
+  }
 }));
 
 

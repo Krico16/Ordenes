@@ -4,7 +4,9 @@ var projects = require('../models/proyecto').Project;
 var asinc = require('async');
 
 router.get('/', function (req, res, next) {
+        console.log(req.session.data)
         if (req.session.data) {
+                console.log('aaaaass')
                 var nick = req.session.data.nick;
                 var id = req.session.data.UserID;
                 var mail = req.session.data.email;
