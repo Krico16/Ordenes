@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
                     username: nick,
                     userid: id,
                     email: mail,
-                    data : succ
+                    data: succ
                 });
             }
         });
@@ -33,7 +33,19 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/new', function (req, res, next) {
-    res.send(req.body.project)
+    if (req.session.data) {
+        var nick = req.session.data.nick;
+        var id = req.session.data.userID;
+        var mail = req.session.data.email;
+
+        res.render('orders/correctivo', {
+            username: nick,
+            userid: id,
+            email: mail
+        });
+    } else {
+        res.redirect('/');
+    }
 });
 
 module.exports = router;
