@@ -41,7 +41,8 @@ router.post('/new', function (req, res, next) {
         res.render('orders/correctivo', {
             username: nick,
             userid: id,
-            email: mail
+            email: mail,
+            data : JSON.stringify(req.body)
         });
     } else {
         res.redirect('/');

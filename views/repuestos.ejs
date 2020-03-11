@@ -203,7 +203,7 @@
 
         <!-- PAGE CONTENT-->
         <div class="page-content--bgf7">
-
+            <% var d = data.proyecto.Repuestos; %>
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
                     <div class="row">
@@ -222,8 +222,9 @@
                                                         <td>Descripción del repuesto</td>
                                                         <td>Cantidad</td>
                                                         <td>Medida</td>
-                                                        <td></td>
+                                                        <td><button type="button" class="btn btn-info" id="plus">Agregar</button></td>
                                                     </thead>
+                                                    <!--
                                                     <tr>
                                                         <td><input type="text" name="pieza[0]" placeholder="Nombre del articulo" class="form-control">
                                                         </td>
@@ -233,9 +234,23 @@
                                                                 <option value="L">Litros</option>
                                                                 <option value="kg">Kilogramos</option>
                                                             </select></td>
-                                                        <td><button type="button" class="btn btn-info"
-                                                                id="plus">Agregar</button></td>
+                                                        <td><button type="button" class="btn btn-info" id="plus">Agregar</button></td>
                                                     </tr>
+                                                    -->
+                                                    <% var n = 0; %> 
+                                                    <% for (const key in d) { const element = d[key]; %>
+                                                    <tr id="row<%=n%>" class="dynamic-added">
+                                                        <td><input type="text" name="pieza[<%= n; %>]" class="form-control" placeholder="Nombre del articulo" value="<%= element.Elemento %>"></td>
+                                                        <td><input type="number" min="0" value="<%= element.Cantidad %>" name="pieza[<%= n; %>]" class="form-control"></td>
+                                                        <td><select name="pieza[<%= n; %>]">
+                                                                <option value="und" <% if (element.Medida == 'und'){ %> <%= 'selected' %> <% } %> >Unidad</option>
+                                                                <option value="L"   <% if (element.Medida == 'L'){ %> <%= 'selected' %> <% } %> >Litros</option>
+                                                                <option value="kg"  <% if (element.Medida == 'kg'){ %> <%= 'selected' %> <% } %>>Kilogramos</option>
+                                                            </select></td>
+                                                        <td><button type="button" onclick="removeBtn(`<%= n %>`)" class="btn btn-danger btn_remove">X</button></td>
+                                                    </tr>
+                                                    <% n++; %> 
+                                                    <% } %>
                                                 </table>
                                             </div>
                                             <hr>
@@ -287,17 +302,19 @@
     <script src="/script/personal.js"></script>
     <script>
         $(function () {
-            var i = 0;
+            var i = `<%= n %>`;
             $('#plus').click(function () {
-                i++;
                 $('#dynamic-field').append('<tr id="row' + i + '" class="dynamic-added">' +
-                    '<td><input type="text" name="pieza['+i+']" class="form-control" placeholder="Nombre del articulo"></td>' +
-                    '<td><input type="number" min="0" value="1" name="pieza['+i+']" class="form-control"></td>' +
-                    '<td><select name="pieza['+i+']"><option value="und">Unidad</option><option value="L">Litros</option><option value="kg">Kilogramos</option></select></td>' +
+                    '<td><input type="text" name="pieza[' + i +
+                    ']" class="form-control" placeholder="Nombre del articulo"></td>' +
+                    '<td><input type="number" min="0" value="1" name="pieza[' + i +
+                    ']" class="form-control"></td>' +
+                    '<td><select name="pieza[' + i +
+                    ']"><option value="und">Unidad</option><option value="L">Litros</option><option value="kg">Kilogramos</option></select></td>' +
                     '<td><button type="button" onclick="removeBtn(' + i + ')"' +
-                    '" class="btn btn-danger btn_remove">X</button></td>' + '</tr>');
+                    'class="btn btn-danger btn_remove">X</button></td>' + '</tr>');
+                    i++;
             });
-
         });
 
         function removeBtn(number) {
@@ -309,15 +326,15 @@
             var id = pathArray[3];
             var form = $("#f1").serialize();
             $.ajax({
-                url : window.location,
+                url: window.location,
                 method: 'POST',
                 data: form,
                 dataType: 'json',
                 error: (err) => {
                     console.log(err);
                 },
-                complete: (op, txt)=> {
-                    if(op.responseText === 'Saved'){
+                complete: (op, txt) => {
+                    if (op.responseText === 'Saved') {
                         window.location = '../insumos/' + id;
                     }
                 }
