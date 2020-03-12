@@ -34,7 +34,7 @@
 
         <!-- PAGE CONTENT-->
         <div class="page-content--bgf7">
-
+            <% var d = data.proyecto.Insumos; %>
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
                     <div class="row">
@@ -53,22 +53,23 @@
                                                         <td>Descripción del repuesto</td>
                                                         <td>Cantidad</td>
                                                         <td>Medida</td>
-                                                        <td></td>
+                                                        <td><button type="button" class="btn btn-info" id="plus">Agregar</button></td>
                                                     </thead>
-                                                    <tr>
-                                                        <td><input type="text" name="pieza[0]"
-                                                                placeholder="Nombre del articulo" class="form-control">
+                                                    <% var n = 0; %> 
+                                                    <% for (const key in d) { const element = d[key]; %>
+                                                    <tr id="row<%=n%>">
+                                                        <td><input type="text" name="pieza[<%= n %>]" placeholder="Nombre del articulo" class="form-control" value="<%= element.Descripcion %> ">
                                                         </td>
-                                                        <td><input type="number" min="0" value="1" name="pieza[0]"
-                                                                class="form-control"></td>
-                                                        <td><select name="pieza[0]">
-                                                                <option value="und">Unidad</option>
-                                                                <option value="L">Litros</option>
-                                                                <option value="kg">Kilogramos</option>
+                                                        <td><input type="number" min="0" value="1" name="pieza[<%= n %>]" class="form-control" value="<%= element.Cantidad %> "></td>
+                                                        <td><select name="pieza[<%= n %>]">
+                                                                <option value="und" <% if(element.Medida == 'und'){ %> selected <% } %> >Unidad</option>
+                                                                <option value="L"   <% if(element.Medida == 'L'){ %> selected <% } %> >Litros</option>
+                                                                <option value="kg"  <% if(element.Medida == 'kg'){ %> selected <% } %> >Kilogramos</option>
                                                             </select></td>
-                                                        <td><button type="button" class="btn btn-info"
-                                                                id="plus">Agregar</button></td>
+                                                        <td><button type="button" onclick="removeBtn(`<%= n %>`)" class="btn btn-danger btn_remove">X</button></td>
                                                     </tr>
+                                                    <% n++; %>
+                                                <% } %>
                                                 </table>
                                             </div>
                                             <hr>
@@ -117,7 +118,7 @@
 <script src="/p/main.js"></script>
 <script>
     $(function () {
-        var i = 0;
+        var i = `<%= n %>`;
         $('#plus').click(function () {
             i++;
             $('#dynamic-field').append('<tr id="row' + i + '" class="dynamic-added">' +
