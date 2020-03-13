@@ -150,6 +150,29 @@ router.get('/insumos/:projectID', (req, res, next) => {
     }
 });
 
+router.get('/info/:projectID', (req, res, next) => {
+    if (req.session.data) {
+        var nick = req.session.data.nick;
+        var id = req.session.data.userID;
+        var mail = req.session.data.email;
+
+        var idProject = new ObjectID(req.params.projectID);
+        var ProjectData = Project.findOne({_id : idProject});
+
+        var data = { proyecto : ProjectData.exec.bind(ProjectData) };
+
+        sync.parallel(data, (exc, done) => {
+            if(!exc){
+                res.json(done); // REEMPLAZAR CON VISTA DE POYECTO GENERAL
+            }else{
+                res.status(500).send(exc);
+            }
+        });
+    }else{
+        res.redirect('/dashboard',500);
+    }
+});
+
 router.post('/insumos/:projectID', (req, res, next) => {
     var cuerpo = req.body;
     var idProject = req.params.projectID;
@@ -163,7 +186,9 @@ router.post('/insumos/:projectID', (req, res, next) => {
 
         Lista.push(nInsumo);
     }
-    Project.findByIdAndUpdate(ObjectID(idProject), { Insumos: Lista }, (exc) => {
+    Project.findByIdAndUpdate(ObjectID(idProject), {
+        Insumos: Lista
+    }, (exc) => {
         if (exc) console.log('Error actualizando documento:', exc);
         res.send('Saved')
     });

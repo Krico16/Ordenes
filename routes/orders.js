@@ -32,12 +32,13 @@ router.get('/', function (req, res, next) {
     }
 });
 
-router.post('/new', function (req, res, next) {
+router.post('/new/:tipo', function (req, res, next) {
     if (req.session.data) {
         var nick = req.session.data.nick;
         var id = req.session.data.userID;
         var mail = req.session.data.email;
 
+        var tipo = req.params.tipo;
         res.render('orders/correctivo', {
             username: nick,
             userid: id,

@@ -70,6 +70,9 @@ app.use(session({
 var indexRouter = require('./routes/index');
 app.use('/', indexRouter);
 
+var accountRouter = require('./routes/account');
+app.use('/account', accountRouter);
+
 var usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
 

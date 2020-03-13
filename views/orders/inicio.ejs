@@ -51,7 +51,7 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <div class="card">
-                                                <form action="ordenes/new" method="POST">
+                                                <form action="ordenes/new/1" method="POST">
                                                     <div class="card-header d-flex">
                                                         <h4 class="card-header-title">Orden correctiva</h4>
                                                         <select class="custom-select ml-auto w-auto" name="project">
@@ -72,8 +72,48 @@
                                             </div>
                                         </div>
                                         <div class="col-4">
-                                            <pre>
-                                            </pre>
+                                            <div class="card">
+                                                <form action="ordenes/new/2" method="POST">
+                                                    <div class="card-header d-flex">
+                                                        <h4 class="card-header-title">Orden correctiva x Garantia</h4>
+                                                        <select class="custom-select ml-auto w-auto" name="project">
+                                                            <option selected disabled>Select</option>
+                                                            <% data.projectos.forEach(element => { %>
+                                                                <option value="<%= element._id %>"><%= element.Nombre %> </option>
+                                                                <% }) %>
+                                                        </select>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <p class="card-text">
+                                                            Some quick example text to build on the
+                                                            card title and
+                                                            make up the bulk of the card's content.</p>
+                                                            <button type="submit" class="btn btn-primary">Crear orden</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="card">
+                                                <form action="ordenes/new/3" method="POST">
+                                                    <div class="card-header d-flex">
+                                                        <h4 class="card-header-title">Orden preventiva</h4>
+                                                        <select class="custom-select ml-auto w-auto" name="project">
+                                                            <option selected disabled>Select</option>
+                                                            <% data.projectos.forEach(element => { %>
+                                                                <option value="<%= element._id %>"><%= element.Nombre %> </option>
+                                                                <% }) %>
+                                                        </select>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <p class="card-text">
+                                                            Some quick example text to build on the
+                                                            card title and
+                                                            make up the bulk of the card's content.</p>
+                                                            <button type="submit" class="btn btn-primary">Crear orden</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -89,8 +129,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="copyright">
-                                <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a
-                                        href="https://colorlib.com">Colorlib</a>.</p>
+                                <p>Copyright © 2018 Colorlib. All rights reserved. Template by 
+                                    <a href="https://colorlib.com">Colorlib</a>.</p>
                             </div>
                         </div>
                     </div>
@@ -117,5 +157,4 @@
 
 <!-- Main JS-->
 <script src="/p/main.js"></script>
-
-adm2parkingsolutions@gmail.com
+<!-- adm2parkingsolutions@gmail.com -->

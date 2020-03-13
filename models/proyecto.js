@@ -60,6 +60,11 @@ const ProjectSchema = new mongoose.Schema({
     Personal: [PersonalSchema],
     Repuestos : [RepuestoSchema],
     Insumos : [InsumoSchema]
+}, {
+    timestamps: {
+        createdAt: 'Creado',
+        updatedAt: 'Modificado'
+    }
 });
 
 var modelPersonal = mongoose.model('Personal', PersonalSchema);

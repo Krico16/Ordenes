@@ -3,10 +3,8 @@ var router = express.Router();
 var projects = require('../models/proyecto').Project;
 var asinc = require('async');
 
-router.get('/', function (req, res, next) {
-        console.log(req.session.data)
+router.get('/', (req, res, next) => {
         if (req.session.data) {
-                console.log('aaaaass')
                 var nick = req.session.data.nick;
                 var id = req.session.data.UserID;
                 var mail = req.session.data.email;
@@ -29,6 +27,7 @@ router.get('/', function (req, res, next) {
         } else {
                 res.redirect('/');
         }
+
 });
 
 module.exports = router;
